@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,6 +27,7 @@
 		1A821ED82863081A0024D397 /* MarvelRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A821ED72863081A0024D397 /* MarvelRepository.swift */; };
 		1A821EDA2863096C0024D397 /* ListHeroesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A821ED92863096C0024D397 /* ListHeroesPresenter.swift */; };
 		1AC0347F2863214900E93178 /* GetHeroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC0347E2863214900E93178 /* GetHeroes.swift */; };
+		6DA689CC2D48459F008A7835 /* LeanRedux in Frameworks */ = {isa = PBXBuildFile; productRef = 6DA689CB2D48459F008A7835 /* LeanRedux */; };
 		AF99BE8C8FC1DE4178D39965 /* Pods_WallaMarvel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27133A00A66EF91557A95FF4 /* Pods_WallaMarvel.framework */; };
 		B44173F44B16313EF24D8ED3 /* Pods_WallaMarvel_WallaMarvelUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A318E79FD19C1EE3A972A3 /* Pods_WallaMarvel_WallaMarvelUITests.framework */; };
 		CEEB6D6D448C150745880569 /* Pods_WallaMarvelTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D0BB56F90DDBDFBE6933F7 /* Pods_WallaMarvelTests.framework */; };
@@ -91,6 +92,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF99BE8C8FC1DE4178D39965 /* Pods_WallaMarvel.framework in Frameworks */,
+				6DA689CC2D48459F008A7835 /* LeanRedux in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,6 +351,9 @@
 				Base,
 			);
 			mainGroup = 1A0E3A8C2862F7E200132FCB;
+			packageReferences = (
+				6DA689CA2D48459F008A7835 /* XCLocalSwiftPackageReference "../WallaMarvel" */,
+			);
 			productRefGroup = 1A0E3A962862F7E200132FCB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -842,6 +847,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		6DA689CA2D48459F008A7835 /* XCLocalSwiftPackageReference "../WallaMarvel" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../WallaMarvel;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6DA689CB2D48459F008A7835 /* LeanRedux */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LeanRedux;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1A0E3A8D2862F7E200132FCB /* Project object */;
 }
