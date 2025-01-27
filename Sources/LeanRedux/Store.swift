@@ -2,6 +2,22 @@ import SwiftUI
 
 /**
  Keeps the centralized state of a view (or views) and publishes a new state when an action is dispatched.
+
+ ```
+                                      4. new STATE                     6. (optional) new ACTION
+          ┌────────────────────────────────────────┐   ┌────────────────────────────────────────┐
+          │                                        │   │                                        │
+          ▽                                        │   ▽                                        │
+  ┌───────────────┐  1. user ACTION          ┌─────┴─────────┐   5. new STATE + ACTION  ┌───────┴───────┐
+  │      VIEW     ├─────────────────────────▷│     STORE     ├─────────────────────────▷│ MIDDLEWARE(S) ├─┐
+  └───────────────┘                          └─────┬─────────┘                          └─┬─────────────┘ ├─┐
+                                                   │    △                                 └─┬─────────────┘ ├─┐
+                         2. current STATE + ACTION │    │ 3. new STATE                      └─┬─────────────┘ │
+                                                   ▽    │                                     └───────────────┘
+                                             ┌──────────┴────┐
+                                             │    REDUCER    │
+                                             └───────────────┘
+ ```
  */
 public final class Store<Action: DTO, State: AutoInitiable & DTO>: ObservableObject
 {
