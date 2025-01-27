@@ -16,5 +16,9 @@ let package = Package(
             name: "LeanRedux",
             dependencies: []
         ),
+        .testTarget(
+            name: "LeanReduxTests",
+            dependencies: ["LeanRedux"]
+        ),
     ]
 )
