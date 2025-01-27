@@ -13,3 +13,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Kingfisher build [issue](https://github.com/onevcat/Kingfisher/issues/2052).
