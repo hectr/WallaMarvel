@@ -1,7 +1,7 @@
 import Testing
 @testable import LeanRedux
 
-@Suite
+@MainActor @Suite
 struct StoreTests
 {
     @Test("Test store initialization with a default state")
@@ -28,7 +28,7 @@ struct StoreTests
         )
         
         // When
-        await store.dispatch(.increment)
+        store.dispatch(.increment)
         
         // Then
         #expect(store.state.value == 1, "Value should have incremented by 1")
@@ -45,16 +45,16 @@ struct StoreTests
         )
 
         // When: Dispatch increment
-        await store.dispatch(.increment)
+        store.dispatch(.increment)
         try #require(store.state.value == 1)
 
         // When: Dispatch custom
-        await store.dispatch(.custom("Hello Redux"))
+        store.dispatch(.custom("Hello Redux"))
         try #require(store.state.value == 1)
         try #require(store.state.lastMessage == "Hello Redux")
 
         // When: Dispatch decrement
-        await store.dispatch(.decrement)
+        store.dispatch(.decrement)
 
         // Then
         #expect(store.state.value == 0)
@@ -74,14 +74,16 @@ struct StoreTests
         )
         
         // When
-        await store.dispatch(.increment)
-        
+        store.dispatch(.increment)
+
         // Then
         // 1) The original .increment should increment the store's value from 0 to 1
         // 2) The "customMiddleware" should produce a .custom action with "Increment triggered"
         // 3) The store should dispatch that new action and update lastMessage
         #expect(store.state.value == 1, "Value should have incremented by 1")
-        #expect(store.state.lastMessage == "Increment triggered", "Middleware should have triggered a custom message")
+        Task {
+            @MainActor #expect(store.state.lastMessage == "Increment triggered", "Middleware should have triggered a custom message")
+        }
     }
     
     @Test("Test that a middleware returning nil does not dispatch a new action")
@@ -94,7 +96,7 @@ struct StoreTests
         )
 
         // When
-        await store.dispatch(.increment)
+        store.dispatch(.increment)
 
         // Then
         #expect(store.state.value == 1, "Value should have incremented by 1")

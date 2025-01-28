@@ -19,6 +19,7 @@ import SwiftUI
                                              └───────────────┘
  ```
  */
+@MainActor
 public final class Store<Action: DTO, State: AutoInitiable & DTO>: ObservableObject
 {
     /// Middlewares act like interceptors for actions dispatched to the store.
@@ -49,13 +50,14 @@ public final class Store<Action: DTO, State: AutoInitiable & DTO>: ObservableObj
     /// Factory method that produces a `Store` with a default `State`.
     public static func make(
         middlewares: [Middleware],
-        reducer: @escaping Reducer
+        reducer: @escaping Reducer,
+        state: State = State()
     ) -> Store<Action, State>
     {
         Store(
             middlewares: middlewares,
             reducer: reducer,
-            state: State()
+            state: state
         )
     }
 
@@ -64,40 +66,41 @@ public final class Store<Action: DTO, State: AutoInitiable & DTO>: ObservableObj
         middlewares: [Middleware],
         reducer: @escaping Reducer,
         state: State
-    ) {
+    )
+    {
         self.middlewares = middlewares
         self.reducer = reducer
         self.state = state
     }
 
     /// Forwards an action to the reducer and the middlewares.
-    public func dispatch(_ action: Action) async
+    public func dispatch(_ action: Action)
     {
         state = reducer(
             state,
             action
         )
-        
-        var newActions = [Action?]()
-        for middleware in middlewares {
-            let newAction = await middleware(
-                action,
-                state
-            )
-            newActions.append(newAction)
+
+        Task {
+            var newActions = [Action?]()
+            for middleware in middlewares {
+                let newAction = await middleware(
+                    action,
+                    state
+                )
+                newActions.append(newAction)
+            }
+            dispatch(newActions)
         }
-
-        await dispatch(newActions)
     }
-
 
     /// Unwraps and dispatches received actions.
     /// Used internally by `dispatch(_:)`.
-    private func dispatch(_ candidates: [Action?]) async
+    private func dispatch(_ candidates: [Action?])
     {
         let actions = candidates.compactMap { action in action }
         for action in actions {
-            await dispatch(action)
+            dispatch(action)
         }
     }
 }

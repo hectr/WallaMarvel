@@ -1,5 +1,5 @@
 /// _Data Transfer Object_ protocol.
-public protocol DTO: Codable, Hashable
+public protocol DTO: Codable, Hashable, Sendable
 {}
 
 extension DTO
