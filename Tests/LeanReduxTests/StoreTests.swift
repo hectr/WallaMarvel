@@ -62,7 +62,8 @@ struct StoreTests
     }
     
     @Test("Test that middleware is invoked and can produce new actions")
-    func middlewareInvokesNewAction() async {
+    func middlewareInvokesNewAction() async
+    {
         // Given
         let store = Store<SampleAction, SampleState>.make(
             middlewares: [
@@ -84,7 +85,8 @@ struct StoreTests
     }
     
     @Test("Test that a middleware returning nil does not dispatch a new action")
-    func middlewareReturningNil() async {
+    func middlewareReturningNil() async
+    {
         // Given
         let store = Store<SampleAction, SampleState>.make(
             middlewares: [alwaysNilMiddleware],
@@ -100,7 +102,8 @@ struct StoreTests
     }
 
     @Test("Test the _noopReducer does not modify the state")
-    func noopReducer() throws {
+    func noopReducer() throws
+    {
         // Given
         let initialState = SampleState(value: 42, lastMessage: "Initial")
         let testAction = SampleAction.increment
