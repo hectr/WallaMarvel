@@ -54,6 +54,7 @@ func sideEffectMiddleware(action: SampleAction, state: SampleState) async -> Sam
 }
 
 /// A middleware that always returns `nil`.
-let alwaysNilMiddleware: Store<SampleAction, SampleState>.Middleware = { action, state in
+func alwaysNilMiddleware(action: SampleAction, state: SampleState) async -> SampleAction?
+{
     return nil
 }
