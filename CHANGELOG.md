@@ -10,8 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - List of superheroes.
-- SnapshotTesting dependency.
-- `onFirstAppear` view modifier.
 
 ## [Unreleased]
 
@@ -19,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - WallaMarvelPackage.
 - LeanRedux target.
+- SnapshotTesting dependency.
+- `onFirstAppear` view modifier.
+- Hero Detail previews.
 
 ### Changed
 
