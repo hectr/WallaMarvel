@@ -1,17 +1,20 @@
 import Foundation
 
+@MainActor
 protocol ListHeroesPresenterProtocol: AnyObject {
     var ui: ListHeroesUI? { get set }
     func screenTitle() -> String
     func getHeroes()
 }
 
-protocol ListHeroesUI: AnyObject {
+@MainActor
+protocol ListHeroesUI: AnyObject, Sendable {
     func update(heroes: [CharacterDataModel])
 }
 
+@MainActor
 final class ListHeroesPresenter: ListHeroesPresenterProtocol {
-    var ui: ListHeroesUI?
+    weak var ui: ListHeroesUI?
     private let getHeroesUseCase: GetHeroesUseCaseProtocol
     
     init(getHeroesUseCase: GetHeroesUseCaseProtocol = GetHeroes()) {
@@ -27,7 +30,7 @@ final class ListHeroesPresenter: ListHeroesPresenterProtocol {
     func getHeroes() {
         getHeroesUseCase.execute { characterDataContainer in
             print("Characters \(characterDataContainer.characters)")
-            self.ui?.update(heroes: characterDataContainer.characters)
+            await self.ui?.update(heroes: characterDataContainer.characters)
         }
     }
 }
