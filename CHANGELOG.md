@@ -15,8 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- WallaMarvelPackage
-- LeanRedux target
+- WallaMarvelPackage.
+- LeanRedux target.
+
+### Changed
+
+- Bump Deployment Target to iOS 15.
+- Bump Swift Language Version to 6.0.
 
 ### Fixed
 
