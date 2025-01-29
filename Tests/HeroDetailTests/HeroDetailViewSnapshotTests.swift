@@ -8,8 +8,20 @@ import UIKit
 final class HeroDetailViewSnapshotTests
 {
     @Test
-    func preview()
+    func `default`()
     {
-        assertSnapshot(of: HeroDetailView_Previews.self, size: .iPhone5)
+        assertSnapshot(of: HeroDetailView_Default_Previews.self, size: .iPhone5)
+    }
+
+    @Test
+    func expanded()
+    {
+        assertSnapshot(of: HeroDetailView_Expanded_Previews.self, size: .iPhone5)
+    }
+
+    @Test
+    func liked()
+    {
+        assertSnapshot(of: HeroDetailView_Liked_Previews.self, size: .iPhone5)
     }
 }
