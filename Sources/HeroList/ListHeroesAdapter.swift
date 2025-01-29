@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import Data
 
 final class ListHeroesAdapter: NSObject, UITableViewDataSource {
     var heroes: [CharacterDataModel] {

@@ -1,7 +1,7 @@
 import Foundation
 
-protocol APIClientProtocol {
-    func getHeroes(completionBlock: @escaping @Sendable (CharacterDataContainer) async -> Void)
+public protocol APIClientProtocol {
+    func getHeroes(completionBlock: @escaping @Sendable (CharacterDataContainer) -> Void)
 }
 
 final class APIClient: APIClientProtocol {
@@ -12,7 +12,7 @@ final class APIClient: APIClientProtocol {
     
     init() { }
     
-    func getHeroes(completionBlock: @escaping @Sendable (CharacterDataContainer) async -> Void) {
+    func getHeroes(completionBlock: @escaping @Sendable (CharacterDataContainer) -> Void) {
         let ts = String(Int(Date().timeIntervalSince1970))
         let privateKey = Constant.privateKey
         let publicKey = Constant.publicKey
@@ -28,7 +28,7 @@ final class APIClient: APIClientProtocol {
         }
         
         let urlRequest = URLRequest(url: urlComponent!.url!)
-        
+
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             let dataModel = try! JSONDecoder().decode(CharacterDataContainer.self, from: data!)
             Task { @MainActor in
