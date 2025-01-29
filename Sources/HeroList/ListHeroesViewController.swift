@@ -46,7 +46,12 @@ extension ListHeroesViewController: ListHeroesUI {
 
 extension ListHeroesViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: present hero detail
+        guard let id = listHeroesProvider?.heroes[indexPath.row].id else {
+            assertionFailure("Hero not found")
+            return
+        }
+        let viewController = UIHostingController(rootView: HeroDetailView.make(heroId: id))
+        present(viewController, animated: true)
     }
 }
 
