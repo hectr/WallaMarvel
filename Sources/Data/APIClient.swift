@@ -32,7 +32,7 @@ final class APIClient: APIClientProtocol {
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             let dataModel = try! JSONDecoder().decode(CharacterDataContainer.self, from: data!)
             Task { @MainActor in
-                await completionBlock(dataModel)
+                completionBlock(dataModel)
             }
             print(dataModel)
         }.resume()
