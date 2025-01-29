@@ -17,7 +17,7 @@ struct HeroDetailReducer
         var isDescriptionExpanded = Bool()
         var liked = Bool()
         var name = String()
-        var selectedHeroId = String?.none
+        var selectedHeroId = Int?.none
         var thumbnail = URL?.none
     }
 

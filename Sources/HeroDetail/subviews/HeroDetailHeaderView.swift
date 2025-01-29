@@ -42,9 +42,7 @@ struct HeroDetailHeaderView: View
     var likeButton: some View
     {
         let button = button {
-            Task {
-                store.dispatch(.like)
-            }
+            store.dispatch(.like)
         } label: {
             Label(
                 viewState.liked ? lexemes.unlikeHero : lexemes.likeHero,
@@ -59,12 +57,12 @@ struct HeroDetailHeaderView: View
     }
 
     func button<Label: View>(
-        action: @escaping () async -> Void,
+        action: @escaping () -> Void,
         label: () -> Label
     ) -> some View
     {
         Button(
-            action: { Task { await action() } },
+            action: { action() },
             label: label
         )
         .labelStyle(.iconOnly)

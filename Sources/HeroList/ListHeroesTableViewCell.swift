@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import Kingfisher
+import Data
 
 final class ListHeroesTableViewCell: UITableViewCell {
     private let heroeImageView: UIImageView = {

@@ -1,4 +1,5 @@
 import UIKit
+import HeroList
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -8,10 +9,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        
-        let presenter = ListHeroesPresenter()
-        let listHeroesViewController = ListHeroesViewController()
-        listHeroesViewController.presenter = presenter
+
+        let listHeroesViewController = ListHeroesViewController.make()
         
         let navigationController = UINavigationController(rootViewController: listHeroesViewController)
         window.rootViewController = navigationController

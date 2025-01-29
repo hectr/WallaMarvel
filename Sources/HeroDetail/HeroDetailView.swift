@@ -1,7 +1,7 @@
 import SwiftUI
 import LeanRedux
 
-struct HeroDetailView: View
+public struct HeroDetailView: View
 {
     // MARK: Dependencies
 
@@ -18,7 +18,7 @@ struct HeroDetailView: View
         State(state: store.state)
     }
 
-    var body: some View
+    public var body: some View
     {
         ZStack{
             HeroDetailBackgroundView()
@@ -45,7 +45,7 @@ struct HeroDetailView: View
 
     // MARK: Lifecycle
 
-    static func make(heroId: String) -> some View
+    public static func make(heroId: Int) -> some View
     {
         HeroDetailView()
             .environmentObject(
@@ -53,6 +53,7 @@ struct HeroDetailView: View
                     middlewares: [],
                     reducer: HeroDetailReducer.reduce,
                     state: HeroDetailReducer.State()
+                        .with(\.selectedHeroId, heroId)
                 )
             )
     }
@@ -74,6 +75,6 @@ struct HeroDetailView: View
 
 struct HeroDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        HeroDetailView.make(heroId: "preview hero id")
+        HeroDetailView.make(heroId: Int())
     }
 }

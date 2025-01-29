@@ -1,6 +1,7 @@
 import Foundation
+import Data
+import Domain
 
-@MainActor
 protocol ListHeroesPresenterProtocol: AnyObject {
     var ui: ListHeroesUI? { get set }
     func screenTitle() -> String
@@ -12,12 +13,15 @@ protocol ListHeroesUI: AnyObject, Sendable {
     func update(heroes: [CharacterDataModel])
 }
 
-@MainActor
 final class ListHeroesPresenter: ListHeroesPresenterProtocol {
-    weak var ui: ListHeroesUI?
+    public weak var ui: ListHeroesUI?
     private let getHeroesUseCase: GetHeroesUseCaseProtocol
-    
-    init(getHeroesUseCase: GetHeroesUseCaseProtocol = GetHeroes()) {
+
+    static func make() -> ListHeroesPresenterProtocol {
+        ListHeroesPresenter(getHeroesUseCase: GetHeroes.make())
+    }
+
+    init(getHeroesUseCase: GetHeroesUseCaseProtocol) {
         self.getHeroesUseCase = getHeroesUseCase
     }
     
@@ -28,9 +32,15 @@ final class ListHeroesPresenter: ListHeroesPresenterProtocol {
     // MARK: UseCases
     
     func getHeroes() {
+        guard let ui else {
+            assertionFailure("ListHeroesPresenter.ui is nil")
+            return
+        }
         getHeroesUseCase.execute { characterDataContainer in
             print("Characters \(characterDataContainer.characters)")
-            await self.ui?.update(heroes: characterDataContainer.characters)
+            Task { @MainActor in 
+                ui.update(heroes: characterDataContainer.characters)
+            }
         }
     }
 }

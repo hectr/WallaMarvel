@@ -8,17 +8,37 @@ let package = Package(
         .iOS(.v15),
     ],
     products: [
-        .library(name: "HeroDetail", targets: ["HeroDetail"]),
-        .library(name: "LeanRedux", targets: ["LeanRedux"]),
+        .library(name: "HeroList", targets: ["HeroList"]),
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.17.6"),
+        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "8.1.3"),
     ],
     targets: [
+        .target(
+            name: "Data",
+            dependencies: []
+        ),
+
+        .target(
+            name: "Domain",
+            dependencies: ["Data"]
+        ),
+
+        .target(
+            name: "HeroList",
+            dependencies: [
+                "Domain",
+                "HeroDetail",
+                .product(name: "Kingfisher", package: "Kingfisher"),
+            ]
+        ),
+
         .target(
             name: "HeroDetail",
             dependencies: ["LeanRedux"]
         ),
+
         .testTarget(
             name: "HeroDetailTests",
             dependencies: [
