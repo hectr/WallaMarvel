@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kingfisher dependency to Swift package.
 - Hero Detail feature presentation.
 - Hero Detail remote image loading.
+- Added mock generation script.
 
 ### Changed
 
