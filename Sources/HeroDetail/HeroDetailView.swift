@@ -1,5 +1,6 @@
-import SwiftUI
+import Kingfisher
 import LeanRedux
+import SwiftUI
 
 public struct HeroDetailView: View
 {
@@ -25,7 +26,9 @@ public struct HeroDetailView: View
             VStack{
                 HeroDetailHeaderView()
                 ScrollView {
-                    Image(systemName: "icloud.slash")
+                    KFImage(viewState.imageUrl)
+                        .placeholder(RemoteImagePlaceholderView.init(progress:))
+                        .fade(duration: CATransaction.animationDuration())
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: .infinity)
@@ -62,10 +65,12 @@ public struct HeroDetailView: View
 
     struct State: DTO
     {
+        var imageUrl: URL?
         var isDescriptionExpanded: Bool
 
         init(state: HeroDetailReducer.State)
         {
+            self.imageUrl = state.thumbnail
             self.isDescriptionExpanded = state.isDescriptionExpanded
         }
     }
@@ -73,8 +78,66 @@ public struct HeroDetailView: View
 
 // MARK: - Preview
 
-struct HeroDetailView_Previews: PreviewProvider {
-    static var previews: some View {
+let state = HeroDetailReducer.State()
+    .with(\.name, "3-D Man")
+    .with(\.heroDescription, """
+    The 3-D Man was a 1950's hero who came about through the unique merger of two brothers, Hal and Chuck Chandler. Chuck was a test pilot who was abducted by alien Skrulls during an important test flight. Earth was seen as a strategic location in the ongoing conflict between the alien Kree and Skrull Empires, so the Skrulls were seeking information on Earth's space program and had captured Chuck to interrogate him. Chuck resisted and escaped, accidentally causing the explosion of the Skrull spacecraft in the process. While his brother Hal watched, the radiation from the explosion seemingly disintegrated Chuck, who disappeared in a burst of light. Hal later discovered, however, that the light burst had imprinted an image of Chuck on each lens of Hal's eyeglasses. Through concentration, Hal could merge the images and cause Chuck to reappear as a three-dimensional man. Chuck become the costumed adventurer known as the 3-D Man and single-handedly subverted the Skrulls' early attempts to undermine Earthly civilization.
+    """)
+    .with(\.thumbnail, nil)
+
+
+struct HeroDetailView_Previews: PreviewProvider
+{
+    static var previews: some View
+    {
         HeroDetailView.make(heroId: Int())
     }
 }
+
+struct HeroDetailView_Default_Previews: PreviewProvider
+{
+
+    static var previews: some View
+    {
+        HeroDetailView()
+            .environmentObject(
+                HeroDetailReducer.Store.make(
+                    state: state
+                )
+            )
+            .previewDisplayName("Default")
+    }
+}
+
+struct HeroDetailView_Expanded_Previews: PreviewProvider
+{
+
+    static var previews: some View
+    {
+        HeroDetailView()
+            .environmentObject(
+                HeroDetailReducer.Store.make(
+                    state: state
+                        .with(\.isDescriptionExpanded, true)
+                )
+            )
+            .previewDisplayName("Expanded")
+    }
+}
+
+struct HeroDetailView_Liked_Previews: PreviewProvider
+{
+
+    static var previews: some View
+    {
+        HeroDetailView()
+            .environmentObject(
+                HeroDetailReducer.Store.make(
+                    state: state
+                        .with(\.liked, true)
+                )
+            )
+            .previewDisplayName("Liked")
+    }
+}
+

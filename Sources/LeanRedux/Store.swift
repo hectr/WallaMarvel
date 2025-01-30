@@ -49,8 +49,8 @@ public final class Store<Action: DTO, State: AutoInitiable & DTO>: ObservableObj
 
     /// Factory method that produces a `Store` with a default `State`.
     public static func make(
-        middlewares: [Middleware],
-        reducer: @escaping Reducer,
+        middlewares: [Middleware] = [],
+        reducer: @escaping Reducer = _noopReducer(state:action:),
         state: State = State()
     ) -> Store<Action, State>
     {
@@ -105,14 +105,12 @@ public final class Store<Action: DTO, State: AutoInitiable & DTO>: ObservableObj
     }
 }
 
-#if DEBUG
 /// No-op / identity reducer.
 /// Only for debugging, testing and previews.
-func _noopReducer<Action: DTO, State: DTO>(
-    action _: Action,
-    state: State
+public func _noopReducer<Action: DTO, State: DTO>(
+    state: State,
+    action _: Action
 ) -> State
 {
     state
 }
-#endif

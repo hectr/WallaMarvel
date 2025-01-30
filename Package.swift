@@ -30,13 +30,15 @@ let package = Package(
             dependencies: [
                 "Domain",
                 "HeroDetail",
-                .product(name: "Kingfisher", package: "Kingfisher"),
             ]
         ),
 
         .target(
             name: "HeroDetail",
-            dependencies: ["LeanRedux"]
+            dependencies: [
+                "LeanRedux",
+                .product(name: "Kingfisher", package: "Kingfisher"),
+            ]
         ),
 
         .testTarget(

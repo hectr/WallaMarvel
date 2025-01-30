@@ -111,7 +111,7 @@ struct StoreTests
         let testAction = SampleAction.increment
 
         // When
-        let resultingState = _noopReducer(action: testAction, state: initialState)
+        let resultingState = _noopReducer(state: initialState, action: testAction)
 
         // Then
         #expect(resultingState == initialState, "_noopReducer should return the same state without modification")
