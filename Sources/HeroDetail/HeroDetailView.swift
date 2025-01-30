@@ -2,7 +2,7 @@ import Kingfisher
 import LeanRedux
 import SwiftUI
 
-public struct HeroDetailView: View
+struct HeroDetailView: View
 {
     // MARK: Dependencies
 
@@ -19,7 +19,7 @@ public struct HeroDetailView: View
         State(state: store.state)
     }
 
-    public var body: some View
+    var body: some View
     {
         ZStack{
             HeroDetailBackgroundView()
@@ -48,7 +48,7 @@ public struct HeroDetailView: View
 
     // MARK: Lifecycle
 
-    public static func make(heroId: Int) -> some View
+    static func make(heroId: Int) -> some View
     {
         HeroDetailView()
             .environmentObject(

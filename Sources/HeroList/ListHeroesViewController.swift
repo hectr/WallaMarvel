@@ -1,29 +1,29 @@
 import Data
-import HeroDetail
 import SwiftUI
 import UIKit
-import Routing
 
 public final class ListHeroesViewController: UIViewController {
     var mainView: ListHeroesView { return view as! ListHeroesView  }
     
-    let navigator: NavigatorProtocol
+    let presentDetail: (Int) -> Void
     let presenter: ListHeroesPresenterProtocol
 
     var listHeroesProvider: ListHeroesAdapter?
 
-    public static func make(window: UIWindow) -> UIViewController {
+    public static func make(
+        presentDetail: @escaping (Int) -> Void
+    ) -> UIViewController {
         ListHeroesViewController(
-            navigator: Navigator.make(window: window),
+            presentDetail: presentDetail,
             presenter: ListHeroesPresenter.make()
         )
     }
 
     init(
-        navigator: NavigatorProtocol,
+        presentDetail: @escaping (Int) -> Void,
         presenter: ListHeroesPresenterProtocol
     ) {
-        self.navigator = navigator
+        self.presentDetail = presentDetail
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
         presenter.ui = self
@@ -60,8 +60,6 @@ extension ListHeroesViewController: UITableViewDelegate {
             assertionFailure("Hero not found")
             return
         }
-        let viewController = UIHostingController(rootView: HeroDetailView.make(heroId: id))
-        navigator.presentModal(viewController, animated: true)
+        presentDetail(id)
     }
 }
-

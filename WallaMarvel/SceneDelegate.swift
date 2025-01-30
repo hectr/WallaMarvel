@@ -1,5 +1,7 @@
-import UIKit
+import HeroDetail
 import HeroList
+import SwiftUI
+import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -10,7 +12,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
 
-        let listHeroesViewController = ListHeroesViewController.make(window: window)
+        let listHeroesViewController = ListHeroesViewController.make(
+            presentDetail: PresentHeroDetail.make(window: window).callAsFunction(heroId:)
+        )
 
         let navigationController = UINavigationController(rootViewController: listHeroesViewController)
         window.rootViewController = navigationController

@@ -9,6 +9,7 @@ let package = Package(
     ],
     products: [
         .library(name: "HeroList", targets: ["HeroList"]),
+        .library(name: "HeroDetail", targets: ["HeroDetail"]),
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.17.6"),
@@ -26,16 +27,16 @@ let package = Package(
             name: "HeroList",
             dependencies: [
                 "Domain",
-                "HeroDetail",
-                "Routing",
+                .product(name: "Kingfisher", package: "Kingfisher"),
             ]
         ),
 
         .target(
             name: "HeroDetail",
             dependencies: [
-                "LeanRedux",
                 .product(name: "Kingfisher", package: "Kingfisher"),
+                "LeanRedux",
+                "Routing"
             ]
         ),
 
