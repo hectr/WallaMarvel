@@ -1,7 +1,7 @@
 import SwiftUI
 import LeanRedux
 
-struct HeroDetailReducer
+struct HeroDetailFeature
 {
     enum Action: DTO
     {

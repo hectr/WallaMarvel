@@ -6,7 +6,7 @@ struct HeroDetailInfoView: View
     // MARK: Dependencies
 
     @EnvironmentObject
-    private var store: HeroDetailReducer.Store
+    private var store: HeroDetailFeature.Store
 
     @Environment(\.lexemes)
     private var lexemes: Lexemes
@@ -74,7 +74,7 @@ struct HeroDetailInfoView: View
         var shadowY = 1.0
         var verticalSpacing = 20.0
 
-        init(state: HeroDetailReducer.State)
+        init(state: HeroDetailFeature.State)
         {
             self.descriptionText = state.heroDescription
             self.isDescriptionExpanded = state.isDescriptionExpanded
@@ -92,10 +92,10 @@ struct HeroDetailInfoView_Previews: PreviewProvider
         HeroDetailInfoView()
             .background(.pink)
             .environmentObject(
-                HeroDetailReducer.Store.make(
+                HeroDetailFeature.Store.make(
                     middlewares: [],
-                    reducer: HeroDetailReducer.reduce,
-                    state: HeroDetailReducer.State()
+                    reducer: HeroDetailFeature.reduce,
+                    state: HeroDetailFeature.State()
                         .with(\.isDescriptionExpanded, true)
                         .with(\.name, "3-D Man")
                         .with(\.heroDescription, """
