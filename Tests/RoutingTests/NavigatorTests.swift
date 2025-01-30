@@ -11,6 +11,7 @@ struct NavigatorTests
     {
         // Given
         let findNextPresenter = FindNextPresenterInWindowProtocolMock()
+        findNextPresenter.callAsFunctionInWindowUIWindowUIViewControllerReturnValue = UIViewController()
         let sut = Navigator(
             nextPresenter: findNextPresenter,
             window: UIWindow()
