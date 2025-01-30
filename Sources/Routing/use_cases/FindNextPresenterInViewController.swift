@@ -9,6 +9,8 @@ protocol FindNextPresenterInViewControllerProtocol
     func callAsFunction(in viewController: UIViewController) -> UIViewController
 }
 
+/// Use case that finds a view controller suitable for presenting a modal view controller.
+/// See `NavigatorProtocol` (_Linear Presentation Rules_).
 @MainActor
 struct FindNextPresenterInViewController: FindNextPresenterInViewControllerProtocol
 {
@@ -38,6 +40,8 @@ struct FindNextPresenterInViewController: FindNextPresenterInViewControllerProto
         return self(in: presentedViewController)
     }
 
+    /// Finds any child view controller that is presenting a modal flow.
+    /// This adds flexibility for cases where a third party is doing unmanaged presentations without following _Linear Presentation Rules_.
     private func findNextSubPresenter(in presenterCandidate: UIViewController) -> UIViewController?
     {
         // check if view controllers contained in the candidate are presenting view controllers
@@ -45,7 +49,7 @@ struct FindNextPresenterInViewController: FindNextPresenterInViewControllerProto
            let visibleViewController = navigationController.visibleViewController,
            let presentedViewController = self.findPresentedViewController(in: [visibleViewController]) {
             return self(in: presentedViewController)
-        }
+        } // else { ...add other special cases handling here (e.g. UITabBarController)... }
         return nil
     }
 }
