@@ -36,7 +36,7 @@ struct FindPresentedViewControllerInArrayTests
     }
 
     @Test("When array contains nested presenting view controllers, then returns the presented view controller of the top level presenting view controller")
-    func presentingViewController2() {
+    func nestedPresentingViewControllers() {
         // Given
         let sut = FindPresentedViewControllerInArray()
 
