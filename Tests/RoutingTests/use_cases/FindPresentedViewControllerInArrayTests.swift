@@ -7,7 +7,8 @@ import UIKit
 struct FindPresentedViewControllerInArrayTests
 {
     @Test("When array doesn't contain a presenting view controller, then returns nil")
-    func noPresentingViewController() {
+    func noPresentingViewController()
+    {
         // Given
         let sut = FindPresentedViewControllerInArray()
 
@@ -20,7 +21,8 @@ struct FindPresentedViewControllerInArrayTests
     }
 
     @Test("When array contains a presenting view controller, then returns its presented view controller")
-    func presentingViewController() {
+    func presentingViewController()
+    {
         // Given
         let sut = FindPresentedViewControllerInArray()
 
@@ -36,7 +38,8 @@ struct FindPresentedViewControllerInArrayTests
     }
 
     @Test("When array contains nested presenting view controllers, then returns the presented view controller of the top level presenting view controller")
-    func nestedPresentingViewControllers() {
+    func nestedPresentingViewControllers()
+    {
         // Given
         let sut = FindPresentedViewControllerInArray()
 

@@ -2,6 +2,10 @@ import Foundation
 import UIKit
 
 /// A navigator is used for managed presentation of view controllers.
+///
+/// Managed presentation adheres to the Linear Presentation Rules:
+/// - Last presented View Controller is the next presenter.
+/// - If no View Controller has been presented, Root View Controller is the next presenter
 /// sourcery: AutoMockable
 @MainActor
 public protocol NavigatorProtocol
@@ -67,4 +71,3 @@ public struct Navigator: NavigatorProtocol
         }
     }
 }
-

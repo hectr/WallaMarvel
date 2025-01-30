@@ -7,7 +7,8 @@ import UIKit
 struct NavigatorTests
 {
     @Test("When present modal is received, then uses 'find next presenter' dependency")
-    func findNextPresenter() {
+    func findNextPresenter()
+    {
         // Given
         let findNextPresenter = FindNextPresenterInWindowProtocolMock()
         let sut = Navigator(
@@ -26,7 +27,8 @@ struct NavigatorTests
     }
 
     @Test("When present modal is received and next presenter is found, then does presentation")
-    func presenterFound() {
+    func presenterFound()
+    {
         // Given
         let findNextPresenter = FindNextPresenterInWindowProtocolMock()
         let presenter = PartialMockUIViewController()

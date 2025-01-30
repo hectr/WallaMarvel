@@ -7,7 +7,8 @@ import UIKit
 struct FindNextPresenterInWindowTests
 {
     @Test("When window has not root view controller, then returns nil")
-    func noRootViewController() {
+    func noRootViewController()
+    {
         // Given
         let nextPresenter = FindNextPresenterInViewControllerProtocolMock()
         let sut = FindNextPresenterInWindow(nextPresenter: nextPresenter)
@@ -22,7 +23,8 @@ struct FindNextPresenterInWindowTests
     }
 
     @Test("When window has root view controller, then returns next presenter")
-    func rootViewController() {
+    func rootViewController()
+    {
         // Given
         let nextPresenter = FindNextPresenterInViewControllerProtocolMock()
         let sut = FindNextPresenterInWindow(nextPresenter: nextPresenter)
