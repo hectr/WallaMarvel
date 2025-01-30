@@ -10,8 +10,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
 
-        let listHeroesViewController = ListHeroesViewController.make()
-        
+        let listHeroesViewController = ListHeroesViewController.make(window: window)
+
         let navigationController = UINavigationController(rootViewController: listHeroesViewController)
         window.rootViewController = navigationController
         self.window = window
