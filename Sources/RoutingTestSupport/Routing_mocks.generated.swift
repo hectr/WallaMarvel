@@ -125,4 +125,34 @@ class FindPresentedViewControllerInArrayProtocolMock: FindPresentedViewControlle
 
 
 }
+public class NavigatorProtocolMock: NavigatorProtocol {
+
+    public init() {}
+
+
+
+    //MARK: - presentModal
+
+    public var presentModalViewControllerToPresentUIViewControllerAnimatedBoolPresentationCallsCount = 0
+    public var presentModalViewControllerToPresentUIViewControllerAnimatedBoolPresentationCalled: Bool {
+        return presentModalViewControllerToPresentUIViewControllerAnimatedBoolPresentationCallsCount > 0
+    }
+    public var presentModalViewControllerToPresentUIViewControllerAnimatedBoolPresentationReceivedArguments: (viewControllerToPresent: UIViewController, animated: Bool)?
+    public var presentModalViewControllerToPresentUIViewControllerAnimatedBoolPresentationReceivedInvocations: [(viewControllerToPresent: UIViewController, animated: Bool)] = []
+    public var presentModalViewControllerToPresentUIViewControllerAnimatedBoolPresentationReturnValue: Presentation?
+    public var presentModalViewControllerToPresentUIViewControllerAnimatedBoolPresentationClosure: ((UIViewController, Bool) -> Presentation?)?
+
+    public func presentModal(_ viewControllerToPresent: UIViewController, animated: Bool) -> Presentation? {
+        presentModalViewControllerToPresentUIViewControllerAnimatedBoolPresentationCallsCount += 1
+        presentModalViewControllerToPresentUIViewControllerAnimatedBoolPresentationReceivedArguments = (viewControllerToPresent: viewControllerToPresent, animated: animated)
+        presentModalViewControllerToPresentUIViewControllerAnimatedBoolPresentationReceivedInvocations.append((viewControllerToPresent: viewControllerToPresent, animated: animated))
+        if let presentModalViewControllerToPresentUIViewControllerAnimatedBoolPresentationClosure = presentModalViewControllerToPresentUIViewControllerAnimatedBoolPresentationClosure {
+            return presentModalViewControllerToPresentUIViewControllerAnimatedBoolPresentationClosure(viewControllerToPresent, animated)
+        } else {
+            return presentModalViewControllerToPresentUIViewControllerAnimatedBoolPresentationReturnValue
+        }
+    }
+
+
+}
 

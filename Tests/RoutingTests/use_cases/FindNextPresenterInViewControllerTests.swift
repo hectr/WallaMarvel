@@ -25,7 +25,8 @@ struct FindNextPresenterInViewControllerTests
     }
 
     @Test("When UINavigationController's 'visible controller' is the presenter, then returns as expected")
-    func visibleControllerIsPresenting() {
+    func visibleControllerIsPresenting()
+    {
         // Given
         let sut = FindNextPresenterInViewController.make()
 
