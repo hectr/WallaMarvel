@@ -15,10 +15,7 @@ let package = Package(
         .package(url: "https://github.com/onevcat/Kingfisher.git", from: "8.1.3"),
     ],
     targets: [
-        .target(
-            name: "Data",
-            dependencies: []
-        ),
+        .target(name: "Data"),
 
         .target(
             name: "Domain",
@@ -30,6 +27,7 @@ let package = Package(
             dependencies: [
                 "Domain",
                 "HeroDetail",
+                "Routing",
             ]
         ),
 
@@ -49,13 +47,20 @@ let package = Package(
             ]
         ),
 
-        .target(
-            name: "LeanRedux",
-            dependencies: []
-        ),
+        .target(name: "LeanRedux"),
         .testTarget(
             name: "LeanReduxTests",
             dependencies: ["LeanRedux"]
+        ),
+
+        .target(name: "Routing"),
+        .testTarget(
+            name: "RoutingTests",
+            dependencies: ["RoutingTestSupport"]
+        ),
+        .target(
+            name: "RoutingTestSupport",
+            dependencies: ["Routing"]
         ),
     ]
 )
