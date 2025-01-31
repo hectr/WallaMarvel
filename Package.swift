@@ -24,6 +24,10 @@ let package = Package(
             dependencies: ["DataContracts"]
         ),
         .target(name: "DataContracts"),
+        .testTarget(
+            name: "DataTests",
+            dependencies: ["Data"]
+        ),
 
         // Domain library
         .target(
@@ -34,6 +38,10 @@ let package = Package(
             ]
         ),
         .target(name: "DomainContracts"),
+        .testTarget(
+            name: "DomainTests",
+            dependencies: ["Domain"]
+        ),
 
         // HeroList library
         .target(

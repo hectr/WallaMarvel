@@ -1,4 +1,4 @@
-public struct CharacterDataModel: Codable, Identifiable, Sendable
+public struct CharacterDataModel: Codable, Hashable, Identifiable, Sendable
 {
     public let id: Int
     public let name: String
