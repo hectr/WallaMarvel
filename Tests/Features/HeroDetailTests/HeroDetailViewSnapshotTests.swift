@@ -24,4 +24,10 @@ final class HeroDetailViewSnapshotTests
     {
         assertSnapshot(of: HeroDetailView_Liked_Previews.self, size: .iPhone5)
     }
+
+    @Test
+    func noDescription()
+    {
+        assertSnapshot(of: HeroDetailView_NoDescription_Previews.self, size: .iPhone5)
+    }
 }

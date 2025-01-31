@@ -124,6 +124,21 @@ struct HeroDetailView_Expanded_Previews: PreviewProvider
     }
 }
 
+struct HeroDetailView_NoDescription_Previews: PreviewProvider
+{
+
+    static var previews: some View
+    {
+        HeroDetailView()
+            .environmentObject(
+                HeroDetailFeature.Store.make(
+                    state: state.with(\.heroDescription, "")
+                )
+            )
+            .previewDisplayName("No Description")
+    }
+}
+
 struct HeroDetailView_Liked_Previews: PreviewProvider
 {
 
