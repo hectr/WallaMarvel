@@ -1,4 +1,4 @@
-import Data
+import DomainContracts
 import SwiftUI
 import UIKit
 
@@ -11,11 +11,12 @@ public final class ListHeroesViewController: UIViewController {
     var listHeroesProvider: ListHeroesAdapter?
 
     public static func make(
+        presenter: ListHeroesPresenterProtocol,
         presentDetail: @escaping (Int) -> Void
     ) -> UIViewController {
         ListHeroesViewController(
             presentDetail: presentDetail,
-            presenter: ListHeroesPresenter.make()
+            presenter: presenter
         )
     }
 
@@ -49,7 +50,7 @@ public final class ListHeroesViewController: UIViewController {
 }
 
 extension ListHeroesViewController: ListHeroesUI {
-    public func update(heroes: [CharacterDataModel]) {
+    public func update(heroes: [CharacterModel]) {
         listHeroesProvider?.heroes = heroes
     }
 }

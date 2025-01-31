@@ -1,9 +1,9 @@
 import Foundation
 import UIKit
-import Data
+import DomainContracts
 
 final class ListHeroesAdapter: NSObject, UITableViewDataSource {
-    var heroes: [CharacterDataModel] {
+    var heroes: [CharacterModel] {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -13,7 +13,7 @@ final class ListHeroesAdapter: NSObject, UITableViewDataSource {
     
     private let tableView: UITableView
     
-    init(tableView: UITableView, heroes: [CharacterDataModel] = []) {
+    init(tableView: UITableView, heroes: [CharacterModel] = []) {
         self.tableView = tableView
         self.heroes = heroes
         super.init()

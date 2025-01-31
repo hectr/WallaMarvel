@@ -1,45 +1,43 @@
-import Foundation
-import Data
-import Domain
+import DomainContracts
 
-protocol ListHeroesPresenterProtocol: AnyObject {
+public protocol ListHeroesPresenterProtocol: AnyObject {
     var ui: ListHeroesUI? { get set }
     func screenTitle() -> String
     func getHeroes()
 }
 
 @MainActor
-protocol ListHeroesUI: AnyObject, Sendable {
-    func update(heroes: [CharacterDataModel])
+public protocol ListHeroesUI: AnyObject, Sendable {
+    func update(heroes: [CharacterModel])
 }
 
-final class ListHeroesPresenter: ListHeroesPresenterProtocol {
+public final class ListHeroesPresenter: ListHeroesPresenterProtocol {
     public weak var ui: ListHeroesUI?
-    private let getHeroesUseCase: GetHeroesUseCaseProtocol
+    private let getHeroesUseCase: GetHeroesProtocol
 
-    static func make() -> ListHeroesPresenterProtocol {
-        ListHeroesPresenter(getHeroesUseCase: GetHeroes.make())
+    public static func make(getHeroes: GetHeroesProtocol) -> ListHeroesPresenterProtocol {
+        ListHeroesPresenter(getHeroesUseCase: getHeroes)
     }
 
-    init(getHeroesUseCase: GetHeroesUseCaseProtocol) {
+    init(getHeroesUseCase: GetHeroesProtocol) {
         self.getHeroesUseCase = getHeroesUseCase
     }
     
-    func screenTitle() -> String {
+    public func screenTitle() -> String {
         "List of Heroes"
     }
     
     // MARK: UseCases
     
-    func getHeroes() {
+    public func getHeroes() {
         guard let ui else {
             assertionFailure("ListHeroesPresenter.ui is nil")
             return
         }
-        getHeroesUseCase.execute { characterDataContainer in
-            print("Characters \(characterDataContainer.characters)")
-            Task { @MainActor in 
-                ui.update(heroes: characterDataContainer.characters)
+        getHeroesUseCase { characterModelContainer in
+            print("Characters \(characterModelContainer.results)")
+            Task { @MainActor in
+                ui.update(heroes: characterModelContainer.results)
             }
         }
     }

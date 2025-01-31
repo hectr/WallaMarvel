@@ -1,3 +1,4 @@
+import DataContracts
 import Foundation
 
 public protocol APIClientProtocol {

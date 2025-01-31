@@ -1,8 +1,4 @@
-import Foundation
-
-public protocol MarvelDataSourceProtocol {
-    func getHeroes(completionBlock: @escaping @Sendable (CharacterDataContainer) -> Void)
-}
+import DataContracts
 
 public final class MarvelDataSource: MarvelDataSourceProtocol {
     private let apiClient: APIClientProtocol

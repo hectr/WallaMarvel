@@ -1,22 +1,31 @@
-import Foundation
-import Data
+import DataContracts
 
-protocol MarvelRepositoryProtocol {
+public protocol MarvelRepositoryProtocol {
     func getHeroes(completionBlock: @escaping @Sendable (CharacterDataContainer) -> Void)
 }
 
-final class MarvelRepository: MarvelRepositoryProtocol {
+public final class MarvelRepository: MarvelRepositoryProtocol
+{
+    // MARK: Dependencies
+
     private let dataSource: MarvelDataSourceProtocol
 
-    static func make() -> MarvelRepositoryProtocol {
-        MarvelRepository(dataSource: MarvelDataSource.make())
+    // MARK: Lifecycle
+
+    public static func make(dataSource: MarvelDataSourceProtocol) -> MarvelRepositoryProtocol
+    {
+        MarvelRepository(dataSource: dataSource)
     }
 
-    init(dataSource: MarvelDataSourceProtocol) {
+    init(dataSource: MarvelDataSourceProtocol)
+    {
         self.dataSource = dataSource
     }
-    
-    func getHeroes(completionBlock: @escaping @Sendable (CharacterDataContainer) -> Void) {
+
+    // MARK: Logic
+
+    public func getHeroes(completionBlock: @escaping @Sendable (CharacterDataContainer) -> Void)
+    {
         dataSource.getHeroes(completionBlock: completionBlock)
     }
 }
