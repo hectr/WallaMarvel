@@ -1,7 +1,7 @@
 import SwiftUI
 
 /**
- Keeps the centralized state of a view (or views) and publishes a new state when an action is dispatched.
+ Keeps the centralized state of a feature and publishes a new state when an action is dispatched.
 
  ```
                                       4. new STATE                     6. (optional) new ACTION
@@ -80,27 +80,16 @@ public final class Store<Action: DTO, State: AutoInitiable & DTO>: ObservableObj
             state,
             action
         )
-
-        Task {
-            var newActions = [Action?]()
-            for middleware in middlewares {
-                let newAction = await middleware(
+        
+        for middleware in middlewares {
+            Task {
+                if let newAction = await middleware(
                     action,
                     state
-                )
-                newActions.append(newAction)
+                ) {
+                    dispatch(newAction)
+                }
             }
-            dispatch(newActions)
-        }
-    }
-
-    /// Unwraps and dispatches received actions.
-    /// Used internally by `dispatch(_:)`.
-    private func dispatch(_ candidates: [Action?])
-    {
-        let actions = candidates.compactMap { action in action }
-        for action in actions {
-            dispatch(action)
         }
     }
 }
