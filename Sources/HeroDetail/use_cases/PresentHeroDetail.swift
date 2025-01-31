@@ -16,6 +16,7 @@ public struct PresentHeroDetail: PresentHeroDetailProtocol
     // MARK: Dependencies
 
     private let makeDismissMiddleware: MakeHeroDetailDismissMiddlewareProtocol
+    private let makeLikeMiddleware: MakeHeroLikeMiddlewareProtocol
     private let navigator: NavigatorProtocol
 
     // MARK: Lifecycle
@@ -26,16 +27,19 @@ public struct PresentHeroDetail: PresentHeroDetailProtocol
     {
         PresentHeroDetail(
             makeDismissMiddleware: MakeHeroDetailDismissMiddleware.make(),
+            makeLikeMiddleware: MakeHeroLikeMiddleware.make(),
             navigator: Navigator.make(window: window)
         )
     }
 
     init(
         makeDismissMiddleware: MakeHeroDetailDismissMiddlewareProtocol,
+        makeLikeMiddleware: MakeHeroLikeMiddlewareProtocol,
         navigator: NavigatorProtocol
     )
     {
         self.makeDismissMiddleware = makeDismissMiddleware
+        self.makeLikeMiddleware = makeLikeMiddleware
         self.navigator = navigator
     }
 
@@ -45,10 +49,12 @@ public struct PresentHeroDetail: PresentHeroDetailProtocol
     {
         var presentation: Presentation?
         let presentationProvider = { presentation }
-        let dismissMiddleware = makeDismissMiddleware(presentationProvider: presentationProvider)
         let view = HeroDetailView.make(
             heroId: heroId,
-            middlewares: [dismissMiddleware]
+            middlewares: [
+                makeDismissMiddleware(presentationProvider: presentationProvider),
+                makeLikeMiddleware(),
+            ]
         )
         let viewController = UIHostingController(rootView: view)
         presentation = navigator.presentModal(viewController, animated: true)

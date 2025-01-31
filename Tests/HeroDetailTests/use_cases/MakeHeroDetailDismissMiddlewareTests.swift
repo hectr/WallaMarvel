@@ -5,7 +5,7 @@
 import SwiftUI
 import Testing
 
-@MainActor
+@Suite @MainActor
 final class MakeHeroDetailDismissMiddlewareTests
 {
     @Test("When created middleware receives 'dismiss' action, it has no follow up action")

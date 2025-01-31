@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Routing target.
 - Navigator component.
 - Hero Detail dismiss button.
+- Hero Detail like button.
 
 ### Changed
 

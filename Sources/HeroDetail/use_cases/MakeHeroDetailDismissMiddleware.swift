@@ -13,7 +13,6 @@ protocol MakeHeroDetailDismissMiddlewareProtocol
 @MainActor
 public struct MakeHeroDetailDismissMiddleware: MakeHeroDetailDismissMiddlewareProtocol
 {
-
     // MARK: Lifecycle
 
     static func make() -> MakeHeroDetailDismissMiddlewareProtocol
@@ -37,7 +36,8 @@ public struct MakeHeroDetailDismissMiddleware: MakeHeroDetailDismissMiddlewarePr
 
     private static func dismiss(
         presentationProvider: @escaping () -> Presentation?
-    ) {
+    )
+    {
         guard let presentation = presentationProvider() else {
             assertionFailure("Presentation late binding failed")
             return
