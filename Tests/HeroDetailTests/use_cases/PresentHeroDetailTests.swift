@@ -4,7 +4,7 @@
 import SwiftUI
 import Testing
 
-@MainActor
+@Suite @MainActor
 final class PresentHeroDetailTests
 {
     @Test("When called presents a hosting controller with dismiss middleware")
@@ -14,8 +14,11 @@ final class PresentHeroDetailTests
         let navigator = NavigatorProtocolMock()
         let makeDismiss = MakeHeroDetailDismissMiddlewareProtocolMock()
         makeDismiss.callAsFunctionPresentationProviderEscapingPresentationHeroDetailFeatureStoreMiddlewareReturnValue = { _, _ in nil }
+        let makeLike = MakeHeroLikeMiddlewareProtocolMock()
+        makeLike.callAsFunctionHeroDetailFeatureStoreMiddlewareReturnValue = { _, _ in nil }
         let sut = PresentHeroDetail(
             makeDismissMiddleware: makeDismiss,
+            makeLikeMiddleware: makeLike,
             navigator: navigator
         )
 

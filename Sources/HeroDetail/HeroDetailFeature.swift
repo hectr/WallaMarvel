@@ -3,10 +3,11 @@ import LeanRedux
 
 struct HeroDetailFeature
 {
-    enum Action: DTO, CaseIterable
+    enum Action: DTO
     {
         case dismiss
         case like
+        case liked(Bool)
         case load
         case toggleDescription
     }
@@ -33,6 +34,9 @@ struct HeroDetailFeature
         case .like:
             like(state: &newState)
 
+        case .liked(let flag):
+            liked(flag: flag, state: &newState)
+
         case .load:
             load(state: &newState)
 
@@ -44,12 +48,12 @@ struct HeroDetailFeature
 
     static func like(state: inout State)
     {
-        // TODO: implement
-#if DEBUG
         state.liked.toggle()
-#else
-        fatalError("not implemented yet")
-#endif
+    }
+
+    static func liked(flag: Bool, state: inout State)
+    {
+        state.liked = flag
     }
 
     static func load(state: inout State)
