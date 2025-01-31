@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Bump Deployment Target to iOS 15.
 - Bump Swift Language Version to 6.0.
+- Modularization uses Contracts frameworks. 
 
 ### Removed
 
