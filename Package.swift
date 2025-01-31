@@ -39,13 +39,17 @@ let package = Package(
                 "Routing"
             ]
         ),
-
         .testTarget(
             name: "HeroDetailTests",
             dependencies: [
-                "HeroDetail",
+                "HeroDetailTestSupport",
+                "RoutingTestSupport",
                 .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
             ]
+        ),
+        .target(
+            name: "HeroDetailTestSupport",
+            dependencies: ["HeroDetail"]
         ),
 
         .target(name: "LeanRedux"),

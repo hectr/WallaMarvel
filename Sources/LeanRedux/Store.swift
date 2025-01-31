@@ -28,25 +28,25 @@ public final class Store<Action: DTO, State: AutoInitiable & DTO>: ObservableObj
         _ action: Action,
         _ associatedState: State
     ) async -> Action?
-
+    
     /// A pure function that takes the current state and an action, and returns a new state.
     /// Reducers are responsible for updating the state based on the actions that are dispatched.
     public typealias Reducer = (
         _ currentState: State,
         _ receivedAction: Action
     ) -> State
-
+    
     /// State is immutable from the outside of the `Store`.
     /// State can be set only by dispatching an `Action` to `Store`.
     @Published
     public private(set) var state: State
-
+    
     /// Each middleware has access to the action and the current state, allowing them to perform any tasks and returning an optional action.
     private let middlewares: [Middleware]
-
+    
     /// Computes the new state resulting from an action.
     private let reducer: Reducer
-
+    
     /// Factory method that produces a `Store` with a default `State`.
     public static func make(
         middlewares: [Middleware] = [],
@@ -60,7 +60,7 @@ public final class Store<Action: DTO, State: AutoInitiable & DTO>: ObservableObj
             state: state
         )
     }
-
+    
     /// Initializer used internally by `make(middlewares:reducer:)`.
     init(
         middlewares: [Middleware],
@@ -72,7 +72,7 @@ public final class Store<Action: DTO, State: AutoInitiable & DTO>: ObservableObj
         self.reducer = reducer
         self.state = state
     }
-
+    
     /// Forwards an action to the reducer and the middlewares.
     public func dispatch(_ action: Action)
     {

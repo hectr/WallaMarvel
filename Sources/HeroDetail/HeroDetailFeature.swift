@@ -3,7 +3,7 @@ import LeanRedux
 
 struct HeroDetailFeature
 {
-    enum Action: DTO
+    enum Action: DTO, CaseIterable
     {
         case dismiss
         case like
