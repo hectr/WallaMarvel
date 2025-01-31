@@ -96,8 +96,7 @@ struct HeroDetailHeaderView_Previews: PreviewProvider
                 HeroDetailFeature.Store.make(
                     middlewares: [],
                     reducer: HeroDetailFeature.reduce,
-                    state: HeroDetailFeature.State()
-                        .with(\.liked, true)
+                    state: HeroDetailFeature.State().with(\.liked, true)
                 )
             )
     }
