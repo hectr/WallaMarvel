@@ -9,6 +9,7 @@ extension CharacterModel
         self.init(
             id: data.id,
             name: data.name,
+            heroDescription: data.description,
             thumbnail: URL(data.thumbnail)
         )
     }

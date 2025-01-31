@@ -11,13 +11,13 @@ protocol MakeHeroDetailDismissMiddlewareProtocol
 }
 
 @MainActor
-public struct MakeHeroDetailDismissMiddleware: MakeHeroDetailDismissMiddlewareProtocol
+public struct MakeHeroDismissMiddleware: MakeHeroDetailDismissMiddlewareProtocol
 {
     // MARK: Lifecycle
 
     static func make() -> MakeHeroDetailDismissMiddlewareProtocol
     {
-        MakeHeroDetailDismissMiddleware()
+        MakeHeroDismissMiddleware()
     }
 
     // MARK: Logic

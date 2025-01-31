@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
     /// Composition Root.
     private static func makeRoot(window: UIWindow) -> UIViewController
     {
-        let repository = MarvelRepository.make(dataSource: MarvelDataSource.make())
+        let repository = MarvelRepository.make(dataSource: MarvelRemoteDataSource.make())
         let getHeroes = GetHeroes.make(repository: repository)
         let listHeroesViewController = ListHeroesViewController.make(
             presenter: ListHeroesPresenter.make(getHeroes: getHeroes),

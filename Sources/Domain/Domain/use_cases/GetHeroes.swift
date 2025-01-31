@@ -21,11 +21,8 @@ public struct GetHeroes: GetHeroesProtocol
 
     // MARK: Logic
 
-    public func callAsFunction(completionBlock: @escaping @Sendable (CharacterModelContainer) -> Void)
+    public func callAsFunction(completion: @escaping @Sendable (CharacterModelContainer) -> Void)
     {
-        repository.getHeroes { dataModel in
-            let model = CharacterModelContainer(dataModel)
-            completionBlock(model)
-        }
+        repository.fetchHeroes(completion: completion)
     }
 }

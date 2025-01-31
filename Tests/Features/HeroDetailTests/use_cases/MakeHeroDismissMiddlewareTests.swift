@@ -6,13 +6,13 @@ import SwiftUI
 import Testing
 
 @Suite @MainActor
-final class MakeHeroDetailDismissMiddlewareTests
+final class MakeHeroDismissMiddlewareTests
 {
     @Test("When created middleware receives 'dismiss' action, it has no follow up action")
     func followUpAction() async
     {
         // Given
-        let sut = MakeHeroDetailDismissMiddleware()
+        let sut = MakeHeroDismissMiddleware()
 
         // When
         let middleware = sut(presentationProvider: {
@@ -28,7 +28,7 @@ final class MakeHeroDetailDismissMiddlewareTests
     func close() async throws
     {
         // Given
-        let sut = MakeHeroDetailDismissMiddleware()
+        let sut = MakeHeroDismissMiddleware()
         let viewController = UIViewController()
         var closeBlockCallsCount = 0
         var receivedViewController = UIViewController?.none
@@ -59,7 +59,7 @@ final class MakeHeroDetailDismissMiddlewareTests
     func otherActions() async throws
     {
         // Given
-        let sut = MakeHeroDetailDismissMiddleware()
+        let sut = MakeHeroDismissMiddleware()
         let viewController = UIViewController()
         var closeBlockCallsCount = 0
         var receivedViewController = UIViewController?.none

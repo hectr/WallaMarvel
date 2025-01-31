@@ -1,10 +1,11 @@
 // Generated using Sourcery 2.2.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
-// Command: Scripts/generate_mocks.sh --target=HeroDetail --import=Routing
+// Command: Scripts/generate_mocks.sh --target=HeroDetail --import=Routing --import=DomainContracts
 
  @testable import HeroDetail
  import Routing
+ import DomainContracts
 
 // swiftlint:disable line_length
 // swiftlint:disable variable_name
