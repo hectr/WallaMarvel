@@ -1,6 +1,7 @@
 import UIKit
 
 /// A `Navigator` dependency.
+/// 
 /// sourcery: AutoMockable
 @MainActor
 protocol FindNextPresenterInWindowProtocol
