@@ -1,9 +1,9 @@
 import SwiftUI
 import LeanRedux
 
-struct HeroDetailReducer
+struct HeroDetailFeature
 {
-    enum Action: DTO
+    enum Action: DTO, CaseIterable
     {
         case dismiss
         case like

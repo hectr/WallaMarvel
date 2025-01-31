@@ -6,7 +6,7 @@ struct HeroDetailHeaderView: View
     // MARK: Dependencies
 
     @EnvironmentObject
-    private var store: HeroDetailReducer.Store
+    private var store: HeroDetailFeature.Store
 
     @Environment(\.lexemes)
     private var lexemes: Lexemes
@@ -78,7 +78,7 @@ struct HeroDetailHeaderView: View
         var opacity = 0.14
         var liked: Bool
 
-        init(state: HeroDetailReducer.State)
+        init(state: HeroDetailFeature.State)
         {
             self.liked = state.liked
         }
@@ -93,10 +93,10 @@ struct HeroDetailHeaderView_Previews: PreviewProvider
     {
         HeroDetailHeaderView()
             .environmentObject(
-                HeroDetailReducer.Store.make(
+                HeroDetailFeature.Store.make(
                     middlewares: [],
-                    reducer: HeroDetailReducer.reduce,
-                    state: HeroDetailReducer.State()
+                    reducer: HeroDetailFeature.reduce,
+                    state: HeroDetailFeature.State()
                         .with(\.liked, true)
                 )
             )

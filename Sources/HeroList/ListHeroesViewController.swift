@@ -1,19 +1,29 @@
 import Data
-import HeroDetail
 import SwiftUI
 import UIKit
 
 public final class ListHeroesViewController: UIViewController {
     var mainView: ListHeroesView { return view as! ListHeroesView  }
     
+    let presentDetail: (Int) -> Void
     let presenter: ListHeroesPresenterProtocol
+
     var listHeroesProvider: ListHeroesAdapter?
 
-    public static func make() -> UIViewController {
-        ListHeroesViewController(presenter: ListHeroesPresenter.make())
+    public static func make(
+        presentDetail: @escaping (Int) -> Void
+    ) -> UIViewController {
+        ListHeroesViewController(
+            presentDetail: presentDetail,
+            presenter: ListHeroesPresenter.make()
+        )
     }
 
-    init(presenter: ListHeroesPresenterProtocol) {
+    init(
+        presentDetail: @escaping (Int) -> Void,
+        presenter: ListHeroesPresenterProtocol
+    ) {
+        self.presentDetail = presentDetail
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
         presenter.ui = self
@@ -50,8 +60,6 @@ extension ListHeroesViewController: UITableViewDelegate {
             assertionFailure("Hero not found")
             return
         }
-        let viewController = UIHostingController(rootView: HeroDetailView.make(heroId: id))
-        present(viewController, animated: true)
+        presentDetail(id)
     }
 }
-

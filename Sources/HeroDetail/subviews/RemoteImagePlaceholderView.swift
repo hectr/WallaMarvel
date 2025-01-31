@@ -10,7 +10,7 @@ struct RemoteImagePlaceholderView: View
 
     // MARK: Content
 
-    public var body: some View
+    var body: some View
     {
         image
             .resizable()
