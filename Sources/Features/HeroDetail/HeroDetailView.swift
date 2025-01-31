@@ -14,9 +14,9 @@ struct HeroDetailView: View
 
     // MARK: Content
 
-    private var viewState: State
+    private var viewState: ViewState
     {
-        State(state: store.state)
+        ViewState(state: store.state)
     }
 
     var body: some View
@@ -65,7 +65,7 @@ struct HeroDetailView: View
 
     // MARK: View State
 
-    struct State: DTO
+    struct ViewState: DTO
     {
         var imageUrl: URL?
         var isDescriptionExpanded: Bool
@@ -86,12 +86,6 @@ let state = HeroDetailFeature.State()
     The 3-D Man was a 1950's hero who came about through the unique merger of two brothers, Hal and Chuck Chandler. Chuck was a test pilot who was abducted by alien Skrulls during an important test flight. Earth was seen as a strategic location in the ongoing conflict between the alien Kree and Skrull Empires, so the Skrulls were seeking information on Earth's space program and had captured Chuck to interrogate him. Chuck resisted and escaped, accidentally causing the explosion of the Skrull spacecraft in the process. While his brother Hal watched, the radiation from the explosion seemingly disintegrated Chuck, who disappeared in a burst of light. Hal later discovered, however, that the light burst had imprinted an image of Chuck on each lens of Hal's eyeglasses. Through concentration, Hal could merge the images and cause Chuck to reappear as a three-dimensional man. Chuck become the costumed adventurer known as the 3-D Man and single-handedly subverted the Skrulls' early attempts to undermine Earthly civilization.
     """)
     .with(\.thumbnail, nil)
-
-
-#Preview
-{
-    HeroDetailView.make(heroId: Int(), middlewares: [])
-}
 
 struct HeroDetailView_Default_Previews: PreviewProvider
 {

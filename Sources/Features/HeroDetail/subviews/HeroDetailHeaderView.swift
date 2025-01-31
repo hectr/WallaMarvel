@@ -13,9 +13,9 @@ struct HeroDetailHeaderView: View
 
     // MARK: Content
 
-    private var viewState: State
+    private var viewState: ViewState
     {
-        State(state: store.state)
+        ViewState(state: store.state)
     }
 
     var body: some View
@@ -73,7 +73,7 @@ struct HeroDetailHeaderView: View
     
     // MARK: View State
 
-    struct State: DTO
+    struct ViewState: DTO
     {
         var opacity = 0.14
         var liked: Bool

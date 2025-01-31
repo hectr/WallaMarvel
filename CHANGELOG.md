@@ -19,15 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - LeanRedux target.
 - SnapshotTesting dependency.
 - `onFirstAppear` view modifier.
-- Hero Detail previews.
 - Kingfisher dependency to Swift package.
-- Hero Detail feature presentation.
-- Hero Detail remote image loading.
 - Added mock generation script.
 - Routing target.
 - Navigator component.
-- Hero Detail dismiss button.
-- Hero Detail like button.
+- Hero Detail feature.
 
 ### Changed
 
