@@ -6,7 +6,7 @@ import SwiftUI
 import UIKit
 import Domain
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate
 {
     func scene(
         _ scene: UIScene,
@@ -32,12 +32,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
     private static func makeRoot(window: UIWindow) -> UIViewController
     {
         let repository = MarvelRepository.make(dataSource: MarvelRemoteDataSource.make())
-        let getHeroes = GetHeroes.make(repository: repository)
         let listHeroesViewController = ListHeroesViewController.make(
-            presenter: ListHeroesPresenter.make(getHeroes: getHeroes),
-            presentDetail: PresentHeroDetail
-                .make(window: window)
-                .callAsFunction(heroId:)
+            presenter: ListHeroesPresenter.make(
+                getHeroes: GetHeroes.make(repository: repository)
+            ),
+            presentDetail: PresentHeroDetail.make(
+                getHero: GetHero.make(repository: repository),
+                window: window
+            ).callAsFunction(heroId:)
         )
         return listHeroesViewController
     }
@@ -53,4 +55,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
         window.makeKeyAndVisible()
     }
 }
-

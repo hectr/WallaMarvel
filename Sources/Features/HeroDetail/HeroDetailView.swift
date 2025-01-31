@@ -139,4 +139,3 @@ struct HeroDetailView_Liked_Previews: PreviewProvider
             .previewDisplayName("Liked")
     }
 }
-
