@@ -1,7 +1,7 @@
+import DomainContracts
 import Foundation
-import UIKit
 import Kingfisher
-import Data
+import UIKit
 
 final class ListHeroesTableViewCell: UITableViewCell {
     private let heroeImageView: UIImageView = {
@@ -49,8 +49,8 @@ final class ListHeroesTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(model: CharacterDataModel) {
-        heroeImageView.kf.setImage(with: URL(string: model.thumbnail.path + "/portrait_small." + model.thumbnail.extension))
+    func configure(model: CharacterModel) {
+        heroeImageView.kf.setImage(with: model.thumbnail)
         heroeName.text = model.name
     }
 }

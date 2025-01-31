@@ -8,6 +8,8 @@ let package = Package(
         .iOS(.v15),
     ],
     products: [
+        .library(name: "Data", targets: ["Data", "DataContracts"]),
+        .library(name: "Domain", targets: ["Domain", "DomainContracts"]),
         .library(name: "HeroList", targets: ["HeroList"]),
         .library(name: "HeroDetail", targets: ["HeroDetail"]),
     ],
@@ -16,21 +18,41 @@ let package = Package(
         .package(url: "https://github.com/onevcat/Kingfisher.git", from: "8.1.3"),
     ],
     targets: [
-        .target(name: "Data"),
-
+        // Data library
         .target(
-            name: "Domain",
+            name: "Data",
+            dependencies: ["DataContracts"]
+        ),
+        .target(name: "DataContracts"),
+        .testTarget(
+            name: "DataTests",
             dependencies: ["Data"]
         ),
 
+        // Domain library
+        .target(
+            name: "Domain",
+            dependencies: [
+                "DataContracts",
+                "DomainContracts",
+            ]
+        ),
+        .target(name: "DomainContracts"),
+        .testTarget(
+            name: "DomainTests",
+            dependencies: ["Domain"]
+        ),
+
+        // HeroList library
         .target(
             name: "HeroList",
             dependencies: [
-                "Domain",
+                "DomainContracts",
                 .product(name: "Kingfisher", package: "Kingfisher"),
             ]
         ),
 
+        // HeroDetail library
         .target(
             name: "HeroDetail",
             dependencies: [
@@ -52,12 +74,14 @@ let package = Package(
             dependencies: ["HeroDetail"]
         ),
 
+        // Redux module
         .target(name: "LeanRedux"),
         .testTarget(
             name: "LeanReduxTests",
             dependencies: ["LeanRedux"]
         ),
 
+        // Routing module
         .target(name: "Routing"),
         .testTarget(
             name: "RoutingTests",
