@@ -16,7 +16,7 @@ final class MakeHeroDetailDismissMiddlewareTests
 
         // When
         let middleware = sut(presentationProvider: {
-            return nil
+            Presentation(for: UIViewController(), closeBlock: { _, _ in })
         })
         let followUp = await middleware(.dismiss, .init())
 
@@ -77,7 +77,7 @@ final class MakeHeroDetailDismissMiddlewareTests
         let middleware = sut(presentationProvider: {
             return presentation
         })
-        for action in HeroDetailFeature.Action.allCases {
+        for action in HeroDetailFeature.Action.allCases.filter({ $0 != .dismiss }) {
             let followUp = await middleware(action, .init())
             try #require(followUp == nil)
             try #require(receivedViewController == nil)
