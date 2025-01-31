@@ -105,6 +105,11 @@ enum Data
             name: "DataContracts",
             path: sourcesPath + "DataContracts"
         ),
+        .target(
+            name: "DataContractsTestSupport",
+            dependencies: ["DataContracts"],
+            path: sourcesPath + "DataContractsTestSupport"
+        ),
         .testTarget(
             name: "DataTests",
             dependencies: ["Data"],
@@ -136,14 +141,26 @@ enum Domain
             path: sourcesPath + "Domain"
         ),
         .target(
+            name: "DomainTestSupport",
+            path: sourcesPath + "DomainTestSupport"
+        ),
+        .target(
             name: "DomainContracts",
             path: sourcesPath + "DomainContracts"
         ),
+        .target(
+            name: "DomainContractsTestSupport",
+            dependencies: ["DomainContracts"],
+            path: sourcesPath + "DomainContractsTestSupport"
+        ),
         .testTarget(
             name: "DomainTests",
-            dependencies: ["Domain"],
+            dependencies: [
+                "DataContractsTestSupport",
+                "Domain",
+                "DomainTestSupport",
+            ],
             path: testsPath + "DomainTests"
-
         ),
     ]}
 }
@@ -176,6 +193,7 @@ enum Feature
         .target(
             name: "HeroDetail",
             dependencies: [
+                "DomainContracts",
                 ExternalDependencies.kingfisher,
                 "LeanRedux",
                 "Routing"
@@ -185,6 +203,7 @@ enum Feature
         .testTarget(
             name: "HeroDetailTests",
             dependencies: [
+                "DomainContractsTestSupport",
                 "HeroDetailTestSupport",
                 "RoutingTestSupport",
                 ExternalDependencies.snapshotTesting,
@@ -193,7 +212,10 @@ enum Feature
         ),
         .target(
             name: "HeroDetailTestSupport",
-            dependencies: ["HeroDetail"],
+            dependencies: [
+                "DomainContracts",
+                "HeroDetail",
+            ],
             path: sourcesPath + "HeroDetailTestSupport"
         ),
     ]}

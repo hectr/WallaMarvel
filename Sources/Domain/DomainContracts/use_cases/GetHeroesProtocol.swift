@@ -1,4 +1,5 @@
+/// sourcery: AutoMockable
 public protocol GetHeroesProtocol
 {
-    func callAsFunction(completionBlock: @escaping @Sendable (CharacterModelContainer) -> Void)
+    func callAsFunction(completion: @escaping @Sendable (CharacterModelContainer) -> Void)
 }

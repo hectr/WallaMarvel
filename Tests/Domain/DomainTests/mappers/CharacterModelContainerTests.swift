@@ -12,7 +12,12 @@ struct CharacterModelContainerTests
     {
         // Given
         let thumbnail = Thumbnail(path: "http://example.com/image", extension: "jpg")
-        let characterDataModel = CharacterDataModel(id: 1, name: "Spider-Man", thumbnail: thumbnail)
+        let characterDataModel = CharacterDataModel(
+            id: 1,
+            name: "Spider-Man",
+            description: "Peter Parker alter ego.",
+            thumbnail: thumbnail
+        )
         let characterData = CharacterDataContainer.CharacterData(count: 1, limit: 10, offset: 0, results: [characterDataModel])
         let dataContainer = CharacterDataContainer(data: characterData)
         

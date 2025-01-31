@@ -1,3 +1,4 @@
+import DomainContracts
 import LeanRedux
 import Routing
 import SwiftUI
@@ -26,7 +27,7 @@ public struct PresentHeroDetail: PresentHeroDetailProtocol
     ) -> PresentHeroDetailProtocol
     {
         PresentHeroDetail(
-            makeDismissMiddleware: MakeHeroDetailDismissMiddleware.make(),
+            makeDismissMiddleware: MakeHeroDismissMiddleware.make(),
             makeLikeMiddleware: MakeHeroLikeMiddleware.make(),
             navigator: Navigator.make(window: window)
         )
