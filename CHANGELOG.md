@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - List of superheroes.
 
-## [Unreleased]
+## [2.0.0] - 2025-01-31
 
 ### Added
 
@@ -39,3 +39,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Kingfisher build [issue](https://github.com/onevcat/Kingfisher/issues/2052).
 - Concurrency warnings.
+
+## [Unreleased]
