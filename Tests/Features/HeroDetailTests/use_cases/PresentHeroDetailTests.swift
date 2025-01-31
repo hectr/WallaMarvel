@@ -16,9 +16,12 @@ final class PresentHeroDetailTests
         makeDismiss.callAsFunctionPresentationProviderEscapingPresentationHeroDetailFeatureStoreMiddlewareReturnValue = { _, _ in nil }
         let makeLike = MakeHeroLikeMiddlewareProtocolMock()
         makeLike.callAsFunctionHeroDetailFeatureStoreMiddlewareReturnValue = { _, _ in nil }
+        let makeLoad = MakeHeroLoadMiddlewareProtocolMock()
+        makeLoad.callAsFunctionHeroDetailFeatureStoreMiddlewareReturnValue = { _, _ in nil }
         let sut = PresentHeroDetail(
             makeDismissMiddleware: makeDismiss,
             makeLikeMiddleware: makeLike,
+            makeLoadMiddleware: makeLoad,
             navigator: navigator
         )
 

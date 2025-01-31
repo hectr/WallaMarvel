@@ -100,9 +100,7 @@ struct HeroDetailView_Default_Previews: PreviewProvider
     {
         HeroDetailView()
             .environmentObject(
-                HeroDetailFeature.Store.make(
-                    state: state
-                )
+                HeroDetailFeature.Store.make(state: state)
             )
             .previewDisplayName("Default")
     }
@@ -116,11 +114,25 @@ struct HeroDetailView_Expanded_Previews: PreviewProvider
         HeroDetailView()
             .environmentObject(
                 HeroDetailFeature.Store.make(
-                    state: state
-                        .with(\.isDescriptionExpanded, true)
+                    state: state.with(\.isDescriptionExpanded, true)
                 )
             )
             .previewDisplayName("Expanded")
+    }
+}
+
+struct HeroDetailView_NoDescription_Previews: PreviewProvider
+{
+
+    static var previews: some View
+    {
+        HeroDetailView()
+            .environmentObject(
+                HeroDetailFeature.Store.make(
+                    state: state.with(\.heroDescription, "")
+                )
+            )
+            .previewDisplayName("No Description")
     }
 }
 
@@ -132,11 +144,9 @@ struct HeroDetailView_Liked_Previews: PreviewProvider
         HeroDetailView()
             .environmentObject(
                 HeroDetailFeature.Store.make(
-                    state: state
-                        .with(\.liked, true)
+                    state: state.with(\.liked, true)
                 )
             )
             .previewDisplayName("Liked")
     }
 }
-

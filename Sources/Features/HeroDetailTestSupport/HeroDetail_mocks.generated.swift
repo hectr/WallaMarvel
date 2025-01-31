@@ -94,6 +94,31 @@ class MakeHeroLikeMiddlewareProtocolMock: MakeHeroLikeMiddlewareProtocol {
 
 
 }
+class MakeHeroLoadMiddlewareProtocolMock: MakeHeroLoadMiddlewareProtocol {
+
+
+
+
+    //MARK: - callAsFunction
+
+    var callAsFunctionHeroDetailFeatureStoreMiddlewareCallsCount = 0
+    var callAsFunctionHeroDetailFeatureStoreMiddlewareCalled: Bool {
+        return callAsFunctionHeroDetailFeatureStoreMiddlewareCallsCount > 0
+    }
+    var callAsFunctionHeroDetailFeatureStoreMiddlewareReturnValue: HeroDetailFeature.Store.Middleware!
+    var callAsFunctionHeroDetailFeatureStoreMiddlewareClosure: (() -> HeroDetailFeature.Store.Middleware)?
+
+    func callAsFunction() -> HeroDetailFeature.Store.Middleware {
+        callAsFunctionHeroDetailFeatureStoreMiddlewareCallsCount += 1
+        if let callAsFunctionHeroDetailFeatureStoreMiddlewareClosure = callAsFunctionHeroDetailFeatureStoreMiddlewareClosure {
+            return callAsFunctionHeroDetailFeatureStoreMiddlewareClosure()
+        } else {
+            return callAsFunctionHeroDetailFeatureStoreMiddlewareReturnValue
+        }
+    }
+
+
+}
 class PersistentStoreProtocolMock: PersistentStoreProtocol {
 
 

@@ -9,6 +9,7 @@ struct HeroDetailFeature
         case like
         case liked(Bool)
         case load
+        case loaded(name: String, description: String, thumbnail: URL?)
         case toggleDescription
     }
 
@@ -40,6 +41,9 @@ struct HeroDetailFeature
         case .load:
             load(state: &newState)
 
+        case .loaded(let name, let description, let thumbnail):
+            loaded(name: name, description: description, thumbnail: thumbnail, state: &newState)
+
         case .toggleDescription:
             toggleDescription(state: &newState)
         }
@@ -57,17 +61,13 @@ struct HeroDetailFeature
     }
 
     static func load(state: inout State)
+    {}
+
+    static func loaded(name: String, description: String, thumbnail: URL?, state: inout State)
     {
-        // TODO: implement
-#if DEBUG
-        state.name = "3-D Man"
-        state.heroDescription = """
-        The 3-D Man was a 1950's hero who came about through the unique merger of two brothers, Hal and Chuck Chandler. Chuck was a test pilot who was abducted by alien Skrulls during an important test flight. Earth was seen as a strategic location in the ongoing conflict between the alien Kree and Skrull Empires, so the Skrulls were seeking information on Earth's space program and had captured Chuck to interrogate him. Chuck resisted and escaped, accidentally causing the explosion of the Skrull spacecraft in the process. While his brother Hal watched, the radiation from the explosion seemingly disintegrated Chuck, who disappeared in a burst of light. Hal later discovered, however, that the light burst had imprinted an image of Chuck on each lens of Hal's eyeglasses. Through concentration, Hal could merge the images and cause Chuck to reappear as a three-dimensional man. Chuck become the costumed adventurer known as the 3-D Man and single-handedly subverted the Skrulls' early attempts to undermine Earthly civilization.
-        """
-        state.thumbnail = URL(string: "https://cdn.marvel.com/content/1x/3dman442.jpg")
-#else
-        fatalError("not implemented yet")
-#endif
+        state.name = name
+        state.heroDescription = description
+        state.thumbnail = thumbnail
     }
 
     static func toggleDescription(state: inout State)

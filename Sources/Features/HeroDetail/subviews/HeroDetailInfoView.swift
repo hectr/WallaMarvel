@@ -36,28 +36,30 @@ struct HeroDetailInfoView: View
                 Spacer()
             }
 
-            // description
-            if viewState.isDescriptionExpanded {
-                Text(viewState.descriptionText)
-                    .font(.subheadline)
-                    .foregroundColor(Color(.systemGray5))
-            } else {
-                Text(viewState.descriptionText)
-                    .font(.subheadline)
-                    .foregroundColor(Color(.systemGray5))
-                    .lineLimit(viewState.collapsedLinesLimit)
-            }
-
-            // Show more
-            Text(viewState.isDescriptionExpanded ? lexemes.showLess : lexemes.showMore)
-                .font(.caption)
-                .fontWeight(.bold)
-                .foregroundColor(Color(.systemGray5))
-                .onTapGesture {
-                    withAnimation(.spring()) {
-                        store.dispatch(.toggleDescription)
-                    }
+            if !viewState.descriptionText.isEmpty {
+                // description
+                if viewState.isDescriptionExpanded {
+                    Text(viewState.descriptionText)
+                        .font(.subheadline)
+                        .foregroundColor(Color(.systemGray5))
+                } else {
+                    Text(viewState.descriptionText)
+                        .font(.subheadline)
+                        .foregroundColor(Color(.systemGray5))
+                        .lineLimit(viewState.collapsedLinesLimit)
                 }
+
+                // Show more
+                Text(viewState.isDescriptionExpanded ? lexemes.showLess : lexemes.showMore)
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color(.systemGray5))
+                    .onTapGesture {
+                        withAnimation(.spring()) {
+                            store.dispatch(.toggleDescription)
+                        }
+                    }
+            }
         }
     }
 
