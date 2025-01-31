@@ -48,15 +48,17 @@ struct HeroDetailView: View
 
     // MARK: Lifecycle
 
-    static func make(heroId: Int) -> some View
+    static func make(
+        heroId: Int,
+        middlewares: [HeroDetailFeature.Store.Middleware]
+    ) -> some View
     {
         HeroDetailView()
             .environmentObject(
                 HeroDetailFeature.Store.make(
-                    middlewares: [],
+                    middlewares: middlewares,
                     reducer: HeroDetailFeature.reduce,
-                    state: HeroDetailFeature.State()
-                        .with(\.selectedHeroId, heroId)
+                    state: HeroDetailFeature.State().with(\.selectedHeroId, heroId)
                 )
             )
     }
@@ -86,12 +88,9 @@ let state = HeroDetailFeature.State()
     .with(\.thumbnail, nil)
 
 
-struct HeroDetailView_Previews: PreviewProvider
+#Preview
 {
-    static var previews: some View
-    {
-        HeroDetailView.make(heroId: Int())
-    }
+    HeroDetailView.make(heroId: Int(), middlewares: [])
 }
 
 struct HeroDetailView_Default_Previews: PreviewProvider
