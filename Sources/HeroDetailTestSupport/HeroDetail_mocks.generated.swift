@@ -68,6 +68,77 @@ class MakeHeroDetailDismissMiddlewareProtocolMock: MakeHeroDetailDismissMiddlewa
 
 
 }
+class MakeHeroLikeMiddlewareProtocolMock: MakeHeroLikeMiddlewareProtocol {
+
+
+
+
+    //MARK: - callAsFunction
+
+    var callAsFunctionHeroDetailFeatureStoreMiddlewareCallsCount = 0
+    var callAsFunctionHeroDetailFeatureStoreMiddlewareCalled: Bool {
+        return callAsFunctionHeroDetailFeatureStoreMiddlewareCallsCount > 0
+    }
+    var callAsFunctionHeroDetailFeatureStoreMiddlewareReturnValue: HeroDetailFeature.Store.Middleware!
+    var callAsFunctionHeroDetailFeatureStoreMiddlewareClosure: (() -> HeroDetailFeature.Store.Middleware)?
+
+    func callAsFunction() -> HeroDetailFeature.Store.Middleware {
+        callAsFunctionHeroDetailFeatureStoreMiddlewareCallsCount += 1
+        if let callAsFunctionHeroDetailFeatureStoreMiddlewareClosure = callAsFunctionHeroDetailFeatureStoreMiddlewareClosure {
+            return callAsFunctionHeroDetailFeatureStoreMiddlewareClosure()
+        } else {
+            return callAsFunctionHeroDetailFeatureStoreMiddlewareReturnValue
+        }
+    }
+
+
+}
+class PersistentStoreProtocolMock: PersistentStoreProtocol {
+
+
+
+
+    //MARK: - set
+
+    var setValueBoolForKeyDefaultNameStringVoidCallsCount = 0
+    var setValueBoolForKeyDefaultNameStringVoidCalled: Bool {
+        return setValueBoolForKeyDefaultNameStringVoidCallsCount > 0
+    }
+    var setValueBoolForKeyDefaultNameStringVoidReceivedArguments: (value: Bool, defaultName: String)?
+    var setValueBoolForKeyDefaultNameStringVoidReceivedInvocations: [(value: Bool, defaultName: String)] = []
+    var setValueBoolForKeyDefaultNameStringVoidClosure: ((Bool, String) -> Void)?
+
+    func set(_ value: Bool, forKey defaultName: String) {
+        setValueBoolForKeyDefaultNameStringVoidCallsCount += 1
+        setValueBoolForKeyDefaultNameStringVoidReceivedArguments = (value: value, defaultName: defaultName)
+        setValueBoolForKeyDefaultNameStringVoidReceivedInvocations.append((value: value, defaultName: defaultName))
+        setValueBoolForKeyDefaultNameStringVoidClosure?(value, defaultName)
+    }
+
+    //MARK: - bool
+
+    var boolForKeyDefaultNameStringBoolCallsCount = 0
+    var boolForKeyDefaultNameStringBoolCalled: Bool {
+        return boolForKeyDefaultNameStringBoolCallsCount > 0
+    }
+    var boolForKeyDefaultNameStringBoolReceivedDefaultName: (String)?
+    var boolForKeyDefaultNameStringBoolReceivedInvocations: [(String)] = []
+    var boolForKeyDefaultNameStringBoolReturnValue: Bool!
+    var boolForKeyDefaultNameStringBoolClosure: ((String) -> Bool)?
+
+    func bool(forKey defaultName: String) -> Bool {
+        boolForKeyDefaultNameStringBoolCallsCount += 1
+        boolForKeyDefaultNameStringBoolReceivedDefaultName = defaultName
+        boolForKeyDefaultNameStringBoolReceivedInvocations.append(defaultName)
+        if let boolForKeyDefaultNameStringBoolClosure = boolForKeyDefaultNameStringBoolClosure {
+            return boolForKeyDefaultNameStringBoolClosure(defaultName)
+        } else {
+            return boolForKeyDefaultNameStringBoolReturnValue
+        }
+    }
+
+
+}
 public class PresentHeroDetailProtocolMock: PresentHeroDetailProtocol {
 
     public init() {}
