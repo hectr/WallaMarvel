@@ -41,3 +41,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Concurrency warnings.
 
 ## [Unreleased]
+
+### Added
+
+- `@Feature` and `@Action macros.
+
+### Removed
+
+- Hero Detail feature boilerplate.
