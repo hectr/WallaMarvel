@@ -1,12 +1,14 @@
 // swift-tools-version: 6.0
 
 import PackageDescription
+import CompilerPluginSupport
 
 /// Package definition.
 let package = Package(
     name: "WallaMarvelPackage",
     platforms: [
         .iOS(.v15),
+        .macOS(.v15),
     ],
     products: Core.products + Data.products + Domain.products + Feature.products,
     dependencies: ExternalDependencies.packages,
@@ -20,8 +22,9 @@ enum ExternalDependencies
 {
     static var packages: [Package.Dependency]
     {[
-        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.17.6"),
         .package(url: "https://github.com/onevcat/Kingfisher.git", from: "8.1.3"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.17.6"),
+        .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "600.0.0-latest"),
     ]}
 
     static var kingfisher: Target.Dependency
@@ -29,6 +32,15 @@ enum ExternalDependencies
 
     static var snapshotTesting: Target.Dependency
     { .product(name: "SnapshotTesting", package: "swift-snapshot-testing") }
+
+    static var swiftCompilerPlugin: Target.Dependency
+    { .product(name: "SwiftCompilerPlugin", package: "swift-syntax") }
+
+    static var swiftSyntaxMacros: Target.Dependency
+    { .product(name: "SwiftSyntaxMacros", package: "swift-syntax") }
+
+    static var swiftSyntaxMacrosTestSupport: Target.Dependency
+    { .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax") }
 }
 
 // MARK: - Module Layers
@@ -56,7 +68,29 @@ enum Core
         // LeanRedux module
         .target(
             name: "LeanRedux",
+            dependencies: ["LeanReduxMacros"],
             path: sourcesPath + "LeanRedux"
+        ),
+        .macro(
+            name: "LeanReduxMacros",
+            dependencies: [
+                ExternalDependencies.swiftCompilerPlugin,
+                ExternalDependencies.swiftSyntaxMacros,
+            ],
+            path: sourcesPath + "LeanReduxMacros"
+        ),
+        .testTarget(
+            name: "LeanReduxMacrosTests",
+            dependencies: [
+                "LeanReduxMacros",
+                ExternalDependencies.swiftSyntaxMacrosTestSupport,
+            ],
+            path: testsPath + "LeanReduxMacrosTests"
+        ),
+        .executableTarget(
+            name: "LeanReduxClient",
+            dependencies: ["LeanRedux"],
+            path: sourcesPath + "LeanReduxClient"
         ),
         .testTarget(
             name: "LeanReduxTests",
