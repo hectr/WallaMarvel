@@ -55,6 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Module Layers: Core, Domain, Features.
 - Merged Domain and Data modules into CoreDomain.
 - Xcode project generated with Tuist.
+- Snapshot Tests named after the recording device.
 
 ### Removed
 

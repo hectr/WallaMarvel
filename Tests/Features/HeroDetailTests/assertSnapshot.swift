@@ -2,39 +2,10 @@ import SnapshotTesting
 import SwiftUI
 import UIKit
 
-/// Some predefined sizes for snapshots.
-/// A real implementation might need more control over the size, like flexible width or height.
-enum SnapshotSize
-{
-    case intrinsicContentSize
-    case iPhone1
-    case iPhone5
-    case iPhone6
-
-    /// Sizes taken from [iOS Resolution](https://www.ios-resolution.com/).
-    @MainActor
-    func size(for view: UIView) -> CGSize
-    {
-        let size: CGSize
-        switch self {
-        case .intrinsicContentSize:
-            size = view.intrinsicContentSize
-        case .iPhone1:
-            size = CGSize(width: 320, height: 480)
-        case .iPhone5:
-            size = CGSize(width: 320, height: 568)
-        case .iPhone6:
-            size = CGSize(width: 375, height: 667)
-        }
-        return size
-    }
-}
-
 @MainActor
 func assertSnapshot<Value: PreviewProvider>(
     of value: @autoclosure () throws -> Value.Type,
-    size snapshotSize: SnapshotSize? = .intrinsicContentSize,
-    named name: String? = nil,
+    layout optionalLayout: SwiftUISnapshotLayout? = nil,
     record recording: Bool? = nil,
     timeout: TimeInterval = 5,
     fileID: StaticString = #fileID,
@@ -44,11 +15,24 @@ func assertSnapshot<Value: PreviewProvider>(
     column: UInt = #column
 )
 {
+    let name = "\(UIDevice.current.name).\(UIDevice.current.systemVersion)"
     do {
-        let view: UIView = try UIHostingController(rootView: value().previews).view
+        let previews = try value().previews
+        let layout: SwiftUISnapshotLayout
+        if let optionalLayout {
+            layout = optionalLayout
+        } else {
+            let view = UIHostingController(rootView: previews).view
+            let size = view!.intrinsicContentSize
+            layout = .fixed(width: size.width, height: size.height)
+        }
         SnapshotTesting.assertSnapshot(
-            of: view,
-            as: .image(size: snapshotSize?.size(for: view)),
+            of: previews,
+            as: .image(
+                precision: 0.99,
+                perceptualPrecision: 0.99,
+                layout: layout
+            ),
             named: name,
             record: recording,
             timeout: timeout,

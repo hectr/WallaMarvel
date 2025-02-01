@@ -10,6 +10,6 @@ final class HeroDetailInfoViewSnapshotTests
     @Test
     func preview()
     {
-        assertSnapshot(of: HeroDetailInfoView_Previews.self, size: .iPhone1)
+        assertSnapshot(of: HeroDetailInfoView_Previews.self, layout: .device(config: .iPhoneSe))
     }
 }
