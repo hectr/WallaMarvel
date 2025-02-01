@@ -10,9 +10,9 @@ let package = Package(
         .iOS(.v15),
         .macOS(.v15),
     ],
-    products: Core.products + Domain.products + Feature.products,
+    products: Core.products + Domain.products + Features.products,
     dependencies: ExternalDependencies.packages,
-    targets: Core.targets + Domain.targets + Feature.targets
+    targets: Core.targets + Domain.targets + Features.targets
 )
 
 // MARK: - Dependencies
@@ -61,7 +61,10 @@ enum Core
     static let testsPath = "Tests/Core/"
 
     static var products: [PackageDescription.Product]
-    {[]}
+    {[
+        .library(name: "LeanRedux", targets: ["LeanRedux"]),
+        .library(name: "Routing", targets: ["Routing", "RoutingTestSupport"]),
+    ]}
 
     static var targets: [PackageDescription.Target]
     {[
@@ -124,7 +127,7 @@ enum Domain
 
     static var products: [PackageDescription.Product]
     {[
-        .library(name: "CoreDomain", targets: ["CoreDomain", "CoreDomainContracts"]),
+        .library(name: "CoreDomain", targets: ["CoreDomain", "CoreDomainContracts", "CoreDomainContractsTestSupport", "CoreDomainTestSupport"]),
     ]}
 
     static var targets: [PackageDescription.Target]
@@ -141,6 +144,7 @@ enum Domain
         ),
         .target(
             name: "CoreDomainContractsTestSupport",
+            dependencies: ["CoreDomainContracts"],
             path: sourcesPath + "CoreDomainContractsTestSupport"
         ),
         .testTarget(
@@ -153,21 +157,22 @@ enum Domain
         ),
         .target(
             name: "CoreDomainTestSupport",
+            dependencies: ["CoreDomain"],
             path: sourcesPath + "CoreDomainTestSupport"
         ),
     ]}
 }
 
-/// Feature UI and business logic.
-enum Feature
+/// Features UI and business logic.
+enum Features
 {
     static let sourcesPath = "Sources/Features/"
     static let testsPath = "Tests/Features/"
 
     static var products: [PackageDescription.Product]
     {[
+        .library(name: "HeroDetail", targets: ["HeroDetail", "HeroDetailTestSupport"]),
         .library(name: "HeroList", targets: ["HeroList"]),
-        .library(name: "HeroDetail", targets: ["HeroDetail"]),
     ]}
 
     static var targets: [PackageDescription.Target]
