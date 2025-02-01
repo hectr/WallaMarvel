@@ -1,9 +1,9 @@
 // Generated using Sourcery 2.2.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
-// Command: Scripts/generate_mocks.sh --target=Routing
+// Command: Scripts/generate_mocks.sh --target=Routing --sources-path=Sources/Core
 
- @testable import Routing
+@testable import Routing
 
 // swiftlint:disable line_length
 // swiftlint:disable variable_name

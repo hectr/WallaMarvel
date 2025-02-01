@@ -21,7 +21,7 @@ function usage() {
 
     label "stderr" ""
     label "stderr red" "Invalid argument: ${argument}"
-    label "stderr red" "Usage: ${script} [generate|help] [--debug] --target=<target_name> [--import=<import_name>...] [--output=<output_file_path>]"
+    label "stderr red" "Usage: ${script} [generate|help] [--debug] --target=<target_name> [--sources-path=<sources_path>] [--import=<import_name>...] [--testable-import=<import_name>...] [--output=<output_file_path>]"
     label "stderr" ""
 
     exit "${LINENO}"
@@ -46,19 +46,22 @@ source "${scripts_path}/label.sh"
 target_name=""
 imports=()
 output=""
+sources_path="${root_repository_path}/Sources"
 
 for argument in "$@"; do
     if [[ "${argument}" == "--debug" ]]; then set -x
 
-    elif [[ "${argument}" == "help" ]]; then help
-
     elif [[ "${argument}" == "--target="* ]]; then target_name="${argument#--target=*}" && imports+="@testable import ${target_name}"
+
+    elif [[ "${argument}" == "--sources-path="* ]]; then sources_path="${argument#--sources-path=*}"
 
     elif [[ "${argument}" == "--import="* ]]; then imports+=("import ${argument#--import=}")
 
     elif [[ "${argument}" == "--testable-import="* ]]; then imports+=("@testable import ${argument#--testable-import=}")
 
     elif [[ "${argument}" == "--output="* ]]; then output="${argument#--output=*}"
+
+    elif [[ "${argument}" == "help" ]]; then help
 
     elif [[ "${argument}" != "generate" ]]; then usage "${0}" "${argument}"; fi
 done
@@ -108,7 +111,7 @@ readonly command_line_string="// Command: $0 $*"
 # Prepare import lines
 import_lines_string=""
 for import in "${imports[@]}"; do
-    import_lines_string+=("${import}\n")
+    import_lines_string+="${import}\n"
 done
 
 ################################################################################
@@ -118,7 +121,6 @@ done
 # change directory to repository root
 cd "${root_repository_path}"
 
-readonly sources_path="${root_repository_path}/Sources"
 readonly sources="${sources_path}/${target_name}"
 readonly templates="${scripts_path}/templates"
 readonly default_output_filename="${target_name}_mocks.generated.swift"

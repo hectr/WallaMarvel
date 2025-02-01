@@ -1,9 +1,9 @@
 // Generated using Sourcery 2.2.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
-// Command: Scripts/generate_mocks.sh --target=DomainContracts
+// Command: Scripts/generate_mocks.sh --target=CoreDomainContracts --sources-path=Sources/Domain
 
- import CoreDomainContracts
+@testable import CoreDomainContracts
 
 // swiftlint:disable line_length
 // swiftlint:disable variable_name
@@ -14,7 +14,6 @@ import UIKit
 #elseif os(OSX)
 import AppKit
 #endif
-
 
 
 
