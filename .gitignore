@@ -99,10 +99,23 @@ iOSInjectionProject/
 
 ### Xcode Patch ###
 *.xcodeproj/*
-!*.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/
-!*.xcworkspace/contents.xcworkspacedata
+
+## Uncomment to track xcodeproj:
+#!*.xcodeproj/project.pbxproj
+
+## Uncomment to track xcodeproj shared configuration:
+#!*.xcodeproj/xcshareddata/
+
+## Uncomment to track xcworkspace shared configuratuion:
+#!*.xcworkspace/contents.xcworkspacedata
+
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.toptal.com/developers/gitignore/api/cocoapods,swift,xcode
+
+## Ignore Tuist generated files:
+Derived/*
+
+## Ignore Tuist generated xcworkspace:
+*.xcworkspace/*
