@@ -45,6 +45,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `@Feature` and `@Action macros.
+- GitHub Actions workflow for running tests on pull requests.
+- Pull request template.
 
 ### Fixed
 
