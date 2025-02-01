@@ -12,4 +12,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: jdx/mise-action@v2
-      - run: tuist test --device 'iPhone 15' --os '18.0' --platform 'iOS'
+      - run: tuist test --no-selective-testing --device 'iPhone 15' --os '18.0' --platform 'iOS'
