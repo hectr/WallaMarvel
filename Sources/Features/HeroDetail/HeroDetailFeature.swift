@@ -1,18 +1,9 @@
 import SwiftUI
 import LeanRedux
 
-struct HeroDetailFeature
+@Feature
+enum HeroDetailFeature
 {
-    enum Action: DTO
-    {
-        case dismiss
-        case like
-        case liked(Bool)
-        case load
-        case loaded(name: String, description: String, thumbnail: URL?)
-        case toggleDescription
-    }
-
     struct State: AutoInitiable, DTO
     {
         var heroDescription = String()
@@ -23,46 +14,27 @@ struct HeroDetailFeature
         var thumbnail = URL?.none
     }
 
-    typealias Store = LeanRedux.Store<Action, State>
+    @Action
+    static func dismiss(state: inout State)
+    {}
 
-    static func reduce(currentState: State, receivedAction: Action) -> State
-    {
-        var newState = currentState
-        switch receivedAction {
-        case .dismiss:
-            break
-
-        case .like:
-            like(state: &newState)
-
-        case .liked(let flag):
-            liked(flag: flag, state: &newState)
-
-        case .load:
-            load(state: &newState)
-
-        case .loaded(let name, let description, let thumbnail):
-            loaded(name: name, description: description, thumbnail: thumbnail, state: &newState)
-
-        case .toggleDescription:
-            toggleDescription(state: &newState)
-        }
-        return newState
-    }
-
+    @Action
     static func like(state: inout State)
     {
         state.liked.toggle()
     }
 
+    @Action
     static func liked(flag: Bool, state: inout State)
     {
         state.liked = flag
     }
 
+    @Action
     static func load(state: inout State)
     {}
 
+    @Action
     static func loaded(name: String, description: String, thumbnail: URL?, state: inout State)
     {
         state.name = name
@@ -70,6 +42,7 @@ struct HeroDetailFeature
         state.thumbnail = thumbnail
     }
 
+    @Action
     static func toggleDescription(state: inout State)
     {
         state.isDescriptionExpanded.toggle()

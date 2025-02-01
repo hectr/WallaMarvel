@@ -39,7 +39,7 @@ struct MakeHeroLikeMiddlewareTests {
         // Then
         #expect(userDefaults.boolForKeyDefaultNameStringBoolCallsCount == 1)
         #expect(userDefaults.boolForKeyDefaultNameStringBoolReceivedDefaultName == "Hero-1-Liked")
-        #expect(followUp == .liked(true))
+        #expect(followUp == .liked(flag: true))
     }
 
     @Test("When created middleware receives an unrelated action, it does nothing")

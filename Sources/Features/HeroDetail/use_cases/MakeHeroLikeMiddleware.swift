@@ -37,7 +37,7 @@ public struct MakeHeroLikeMiddleware: MakeHeroLikeMiddlewareProtocol
                 store(heroId: heroId, liked: state.liked)
             } else if action == .load, let heroId = state.selectedHeroId {
                 let liked = restore(heroId: heroId)
-                followUp = .liked(liked)
+                followUp = .liked(flag: liked)
             }
             return followUp
         }

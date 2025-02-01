@@ -7,8 +7,7 @@ extension HeroDetailFeature.Action: CaseIterable
     {[
         .dismiss,
         .like,
-        .liked(false),
-        .liked(true),
+        .liked(flag: Bool()),
         .load,
         .loaded(name: String(), description: String(), thumbnail: URL?.none),
         .toggleDescription
