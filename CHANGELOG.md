@@ -46,6 +46,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `@Feature` and `@Action macros.
 
+### Fixed
+
+- Mock generation (Layered Modules).
+
 ### Changed
 
 - Module Layers: Core, Domain, Features.
@@ -54,4 +58,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Hero Detail feature boilerplate.
-- CocoaPods.
+- CocoaPods: Podfile, Podfile.lock, xcodeproj configuration.
