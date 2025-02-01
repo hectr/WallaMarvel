@@ -1,10 +1,10 @@
 // Generated using Sourcery 2.2.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
-// Command: Scripts/generate_mocks.sh --target=CoreDomain --import=CoreDomainContracts
+// Command: Scripts/generate_mocks.sh --target=CoreDomain --sources-path=Sources/Domain --import=CoreDomainContracts
 
- @testable import CoreDomain
- import CoreDomainContracts
+@testable import CoreDomain
+import CoreDomainContracts
 
 // swiftlint:disable line_length
 // swiftlint:disable variable_name
@@ -39,23 +39,22 @@ import AppKit
 
 
 
-public class CharacterModelContainerStoreProtocolMock: CharacterModelContainerStoreProtocol {
+class CharacterModelContainerStoreProtocolMock: CharacterModelContainerStoreProtocol {
 
-    public init() {}
 
 
 
     //MARK: - add
 
-    public var addPageCharacterModelContainerVoidCallsCount = 0
-    public var addPageCharacterModelContainerVoidCalled: Bool {
+    var addPageCharacterModelContainerVoidCallsCount = 0
+    var addPageCharacterModelContainerVoidCalled: Bool {
         return addPageCharacterModelContainerVoidCallsCount > 0
     }
-    public var addPageCharacterModelContainerVoidReceivedPage: (CharacterModelContainer)?
-    public var addPageCharacterModelContainerVoidReceivedInvocations: [(CharacterModelContainer)] = []
-    public var addPageCharacterModelContainerVoidClosure: ((CharacterModelContainer) -> Void)?
+    var addPageCharacterModelContainerVoidReceivedPage: (CharacterModelContainer)?
+    var addPageCharacterModelContainerVoidReceivedInvocations: [(CharacterModelContainer)] = []
+    var addPageCharacterModelContainerVoidClosure: ((CharacterModelContainer) -> Void)?
 
-    public func add(page: CharacterModelContainer) {
+    func add(page: CharacterModelContainer) {
         addPageCharacterModelContainerVoidCallsCount += 1
         addPageCharacterModelContainerVoidReceivedPage = page
         addPageCharacterModelContainerVoidReceivedInvocations.append(page)
@@ -64,16 +63,16 @@ public class CharacterModelContainerStoreProtocolMock: CharacterModelContainerSt
 
     //MARK: - get
 
-    public var getHeroIdIntCharacterModelCallsCount = 0
-    public var getHeroIdIntCharacterModelCalled: Bool {
+    var getHeroIdIntCharacterModelCallsCount = 0
+    var getHeroIdIntCharacterModelCalled: Bool {
         return getHeroIdIntCharacterModelCallsCount > 0
     }
-    public var getHeroIdIntCharacterModelReceivedId: (Int)?
-    public var getHeroIdIntCharacterModelReceivedInvocations: [(Int)] = []
-    public var getHeroIdIntCharacterModelReturnValue: CharacterModel?
-    public var getHeroIdIntCharacterModelClosure: ((Int) -> CharacterModel?)?
+    var getHeroIdIntCharacterModelReceivedId: (Int)?
+    var getHeroIdIntCharacterModelReceivedInvocations: [(Int)] = []
+    var getHeroIdIntCharacterModelReturnValue: CharacterModel?
+    var getHeroIdIntCharacterModelClosure: ((Int) -> CharacterModel?)?
 
-    public func get(hero id: Int) -> CharacterModel? {
+    func get(hero id: Int) -> CharacterModel? {
         getHeroIdIntCharacterModelCallsCount += 1
         getHeroIdIntCharacterModelReceivedId = id
         getHeroIdIntCharacterModelReceivedInvocations.append(id)
@@ -82,6 +81,30 @@ public class CharacterModelContainerStoreProtocolMock: CharacterModelContainerSt
         } else {
             return getHeroIdIntCharacterModelReturnValue
         }
+    }
+
+
+}
+class MarvelRemoteDataSourceProtocolMock: MarvelRemoteDataSourceProtocol {
+
+
+
+
+    //MARK: - fetchHeroes
+
+    var fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidCallsCount = 0
+    var fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidCalled: Bool {
+        return fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidCallsCount > 0
+    }
+    var fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidReceivedCompletion: (((CharacterDataContainer) -> Void))?
+    var fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidReceivedInvocations: [(((CharacterDataContainer) -> Void))] = []
+    var fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidClosure: ((@Sendable @escaping (CharacterDataContainer) -> Void) -> Void)?
+
+    func fetchHeroes(completion: @Sendable @escaping (CharacterDataContainer) -> Void) {
+        fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidCallsCount += 1
+        fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidReceivedCompletion = completion
+        fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidReceivedInvocations.append(completion)
+        fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidClosure?(completion)
     }
 
 
