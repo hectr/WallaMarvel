@@ -5,7 +5,7 @@
 
  @testable import HeroDetail
  import Routing
- import DomainContracts
+ import CoreDomainContracts
 
 // swiftlint:disable line_length
 // swiftlint:disable variable_name

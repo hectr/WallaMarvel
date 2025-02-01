@@ -1,5 +1,5 @@
-@testable import DomainContracts
-@testable import DomainContractsTestSupport
+import CoreDomainContracts
+import CoreDomainContractsTestSupport
 @testable import HeroDetail
 @testable import HeroDetailTestSupport
 import Testing

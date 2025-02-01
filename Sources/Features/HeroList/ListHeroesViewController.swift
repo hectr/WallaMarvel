@@ -1,4 +1,4 @@
-import DomainContracts
+import CoreDomainContracts
 import SwiftUI
 import UIKit
 
