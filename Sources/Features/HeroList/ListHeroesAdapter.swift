@@ -1,6 +1,6 @@
 import Foundation
 import UIKit
-import DomainContracts
+import CoreDomainContracts
 
 final class ListHeroesAdapter: NSObject, UITableViewDataSource {
     var heroes: [CharacterModel] {

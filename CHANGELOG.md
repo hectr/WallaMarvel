@@ -46,6 +46,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `@Feature` and `@Action macros.
 
+### Changed
+
+- Module Layers: Core, Domain, Features.
+- Merged Domain and Data modules into CoreDomain.
+
 ### Removed
 
 - Hero Detail feature boilerplate.

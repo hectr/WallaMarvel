@@ -1,4 +1,4 @@
-import DomainContracts
+import CoreDomainContracts
 
 public protocol ListHeroesPresenterProtocol: AnyObject {
     var ui: ListHeroesUI? { get set }

@@ -15,10 +15,8 @@
 		1A0E3ABA2862F7E300132FCB /* WallaMarvelUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0E3AB92862F7E300132FCB /* WallaMarvelUITests.swift */; };
 		1A0E3ABC2862F7E300132FCB /* WallaMarvelUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0E3ABB2862F7E300132FCB /* WallaMarvelUITestsLaunchTests.swift */; };
 		6D0B88022D4BE19600A0066A /* HeroDetail in Frameworks */ = {isa = PBXBuildFile; productRef = 6D0B88012D4BE19600A0066A /* HeroDetail */; };
-		6D0B88042D4CEC8700A0066A /* Data in Frameworks */ = {isa = PBXBuildFile; productRef = 6D0B88032D4CEC8700A0066A /* Data */; };
-		6D0B88062D4CEC8700A0066A /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 6D0B88052D4CEC8700A0066A /* Domain */; };
+		6D7767A92D4E2DE100C067C7 /* CoreDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7767A82D4E2DE100C067C7 /* CoreDomain */; };
 		6DE45C382D4A24DD00E90621 /* HeroList in Frameworks */ = {isa = PBXBuildFile; productRef = 6DE45C372D4A24DD00E90621 /* HeroList */; };
-		AF99BE8C8FC1DE4178D39965 /* Pods_WallaMarvel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27133A00A66EF91557A95FF4 /* Pods_WallaMarvel.framework */; };
 		B44173F44B16313EF24D8ED3 /* Pods_WallaMarvel_WallaMarvelUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A318E79FD19C1EE3A972A3 /* Pods_WallaMarvel_WallaMarvelUITests.framework */; };
 		CEEB6D6D448C150745880569 /* Pods_WallaMarvelTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D0BB56F90DDBDFBE6933F7 /* Pods_WallaMarvelTests.framework */; };
 /* End PBXBuildFile section */
@@ -68,11 +66,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D0B88062D4CEC8700A0066A /* Domain in Frameworks */,
 				6D0B88022D4BE19600A0066A /* HeroDetail in Frameworks */,
-				AF99BE8C8FC1DE4178D39965 /* Pods_WallaMarvel.framework in Frameworks */,
-				6D0B88042D4CEC8700A0066A /* Data in Frameworks */,
 				6DE45C382D4A24DD00E90621 /* HeroList in Frameworks */,
+				6D7767A92D4E2DE100C067C7 /* CoreDomain in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -717,15 +713,10 @@
 			package = 6DA689CA2D48459F008A7835 /* XCLocalSwiftPackageReference "../WallaMarvel" */;
 			productName = HeroDetail;
 		};
-		6D0B88032D4CEC8700A0066A /* Data */ = {
+		6D7767A82D4E2DE100C067C7 /* CoreDomain */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6DA689CA2D48459F008A7835 /* XCLocalSwiftPackageReference "../WallaMarvel" */;
-			productName = Data;
-		};
-		6D0B88052D4CEC8700A0066A /* Domain */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6DA689CA2D48459F008A7835 /* XCLocalSwiftPackageReference "../WallaMarvel" */;
-			productName = Domain;
+			productName = CoreDomain;
 		};
 		6DE45C372D4A24DD00E90621 /* HeroList */ = {
 			isa = XCSwiftPackageProductDependency;

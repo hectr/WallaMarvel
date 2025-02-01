@@ -10,9 +10,9 @@ let package = Package(
         .iOS(.v15),
         .macOS(.v15),
     ],
-    products: Core.products + Data.products + Domain.products + Feature.products,
+    products: Core.products + Domain.products + Feature.products,
     dependencies: ExternalDependencies.packages,
-    targets: Core.targets + Data.targets + Domain.targets + Feature.targets
+    targets: Core.targets + Domain.targets + Feature.targets
 )
 
 // MARK: - Dependencies
@@ -116,43 +116,7 @@ enum Core
     ]}
 }
 
-/// Shared data management.
-enum Data
-{
-    static let sourcesPath = "Sources/Data/"
-    static let testsPath = "Tests/Data/"
-
-    static var products: [PackageDescription.Product]
-    {[
-        .library(name: "Data", targets: ["Data", "DataContracts"]),
-    ]}
-
-    static var targets: [PackageDescription.Target]
-    {[
-        // Data library
-        .target(
-            name: "Data",
-            dependencies: ["DataContracts"],
-            path: sourcesPath + "Data"
-        ),
-        .target(
-            name: "DataContracts",
-            path: sourcesPath + "DataContracts"
-        ),
-        .target(
-            name: "DataContractsTestSupport",
-            dependencies: ["DataContracts"],
-            path: sourcesPath + "DataContractsTestSupport"
-        ),
-        .testTarget(
-            name: "DataTests",
-            dependencies: ["Data"],
-            path: testsPath + "DataTests"
-        ),
-    ]}
-}
-
-/// Shared UI and business logic.
+/// Shared business logic.
 enum Domain
 {
     static let sourcesPath = "Sources/Domain/"
@@ -160,41 +124,36 @@ enum Domain
 
     static var products: [PackageDescription.Product]
     {[
-        .library(name: "Domain", targets: ["Domain", "DomainContracts"]),
+        .library(name: "CoreDomain", targets: ["CoreDomain", "CoreDomainContracts"]),
     ]}
 
     static var targets: [PackageDescription.Target]
     {[
-        // Domain library
+        // CoreDomain library
         .target(
-            name: "Domain",
-            dependencies: [
-                "DataContracts",
-                "DomainContracts",
-            ],
-            path: sourcesPath + "Domain"
+            name: "CoreDomain",
+            dependencies: ["CoreDomainContracts"],
+            path: sourcesPath + "CoreDomain"
         ),
         .target(
-            name: "DomainTestSupport",
-            path: sourcesPath + "DomainTestSupport"
+            name: "CoreDomainContracts",
+            path: sourcesPath + "CoreDomainContracts"
         ),
         .target(
-            name: "DomainContracts",
-            path: sourcesPath + "DomainContracts"
-        ),
-        .target(
-            name: "DomainContractsTestSupport",
-            dependencies: ["DomainContracts"],
-            path: sourcesPath + "DomainContractsTestSupport"
+            name: "CoreDomainContractsTestSupport",
+            path: sourcesPath + "CoreDomainContractsTestSupport"
         ),
         .testTarget(
-            name: "DomainTests",
+            name: "CoreDomainTests",
             dependencies: [
-                "DataContractsTestSupport",
-                "Domain",
-                "DomainTestSupport",
+                "CoreDomain",
+                "CoreDomainTestSupport",
             ],
-            path: testsPath + "DomainTests"
+            path: testsPath + "CoreDomainTests"
+        ),
+        .target(
+            name: "CoreDomainTestSupport",
+            path: sourcesPath + "CoreDomainTestSupport"
         ),
     ]}
 }
@@ -217,7 +176,7 @@ enum Feature
         .target(
             name: "HeroList",
             dependencies: [
-                "DomainContracts",
+                "CoreDomainContracts",
                 ExternalDependencies.kingfisher,
             ],
             path: sourcesPath + "HeroList"
@@ -227,7 +186,7 @@ enum Feature
         .target(
             name: "HeroDetail",
             dependencies: [
-                "DomainContracts",
+                "CoreDomainContracts",
                 ExternalDependencies.kingfisher,
                 "LeanRedux",
                 "Routing"
@@ -237,7 +196,7 @@ enum Feature
         .testTarget(
             name: "HeroDetailTests",
             dependencies: [
-                "DomainContractsTestSupport",
+                "CoreDomainContractsTestSupport",
                 "HeroDetailTestSupport",
                 "RoutingTestSupport",
                 ExternalDependencies.snapshotTesting,
@@ -247,7 +206,7 @@ enum Feature
         .target(
             name: "HeroDetailTestSupport",
             dependencies: [
-                "DomainContracts",
+                "CoreDomainContracts",
                 "HeroDetail",
             ],
             path: sourcesPath + "HeroDetailTestSupport"

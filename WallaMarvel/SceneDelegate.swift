@@ -1,10 +1,9 @@
-import Data
-import Domain
+import CoreDomain
 import HeroDetail
 import HeroList
 import SwiftUI
 import UIKit
-import Domain
+
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate
 {
@@ -31,7 +30,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate
     /// Composition Root.
     private static func makeRoot(window: UIWindow) -> UIViewController
     {
-        let repository = MarvelRepository.make(dataSource: MarvelRemoteDataSource.make())
+        let repository = MarvelRepository.make()
         let listHeroesViewController = ListHeroesViewController.make(
             presenter: ListHeroesPresenter.make(
                 getHeroes: GetHeroes.make(repository: repository)

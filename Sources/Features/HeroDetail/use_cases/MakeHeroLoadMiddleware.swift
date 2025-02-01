@@ -1,4 +1,4 @@
-import DomainContracts
+import CoreDomainContracts
 import LeanRedux
 import Routing
 import SwiftUI
