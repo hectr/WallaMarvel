@@ -1,4 +1,4 @@
-_(Remove this line if you have updated CHANGELOG.md)_
+_(Remove this line if you have updated the CHANGELOG.md file)_
 
 ### What’s Changed
 
