@@ -40,7 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kingfisher build [issue](https://github.com/onevcat/Kingfisher/issues/2052).
 - Concurrency warnings.
 
-## [Unreleased]
+## [2.0.0] - 2025-01-2
 
 ### Added
 
@@ -63,3 +63,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Hero Detail feature boilerplate.
 - CocoaPods: Podfile, Podfile.lock, xcodeproj configuration.
+
+## [Unreleased]
