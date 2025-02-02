@@ -52,6 +52,17 @@ let project = Project(
             ]
         ),
         .target(
+            name: "NetworkingTests",
+            destinations: .iOS,
+            product: .unitTests,
+            bundleId: "com.wallapop.NetworkingTests",
+            sources: ["Tests/Core/NetworkingTests/**"],
+            dependencies: [
+                .package(product: "Networking", type: .runtime, condition: nil),
+                .package(product: "Collections", type: .runtime, condition: nil),
+            ]
+        ),
+        .target(
             name: "HeroDetailTests",
             destinations: .iOS,
             product: .unitTests,

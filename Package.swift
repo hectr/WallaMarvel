@@ -23,9 +23,13 @@ enum ExternalDependencies
     static var packages: [Package.Dependency]
     {[
         .package(url: "https://github.com/onevcat/Kingfisher.git", from: "8.1.3"),
+        .package(url: "https://github.com/apple/swift-collections.git", from: "1.1.0"),
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.17.6"),
         .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "600.0.0-latest"),
     ]}
+
+    static var collections: Target.Dependency
+    { .product(name: "Collections", package: "swift-collections") }
 
     static var kingfisher: Target.Dependency
     { .product(name: "Kingfisher", package: "Kingfisher") }
@@ -63,6 +67,7 @@ enum Core
     static var products: [PackageDescription.Product]
     {[
         .library(name: "LeanRedux", targets: ["LeanRedux"]),
+        .library(name: "Networking", targets: ["Networking", "NetworkingTestSupport"]),
         .library(name: "Routing", targets: ["Routing", "RoutingTestSupport"]),
     ]}
 
@@ -101,6 +106,23 @@ enum Core
             path: testsPath + "LeanReduxTests"
         ),
 
+        // Networking
+        .target(
+            name: "Networking",
+            dependencies: [ExternalDependencies.collections],
+            path: sourcesPath + "Networking"
+        ),
+        .testTarget(
+            name: "NetworkingTests",
+            dependencies: ["NetworkingTestSupport"],
+            path: testsPath + "NetworkingTests"
+        ),
+        .target(
+            name: "NetworkingTestSupport",
+            dependencies: ["Networking"],
+            path: sourcesPath + "NetworkingTestSupport"
+        ),
+
         // Routing module
         .target(
             name: "Routing",
@@ -135,7 +157,10 @@ enum Domain
         // CoreDomain library
         .target(
             name: "CoreDomain",
-            dependencies: ["CoreDomainContracts"],
+            dependencies: [
+                "CoreDomainContracts",
+                "Networking",
+            ],
             path: sourcesPath + "CoreDomain"
         ),
         .target(
