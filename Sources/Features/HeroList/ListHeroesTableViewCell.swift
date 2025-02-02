@@ -37,11 +37,18 @@ final class ListHeroesTableViewCell: UITableViewCell {
     }
     
     private func addContraints() {
+        // size
+        NSLayoutConstraint.activate([
+            heroeImageView.heightAnchor.constraint(equalToConstant: 80),
+            heroeImageView.widthAnchor.constraint(equalToConstant: 80),
+        ].map { constraint in
+            constraint.priority = .defaultHigh
+            return constraint
+        })
+        // position
         NSLayoutConstraint.activate([
             heroeImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
             heroeImageView.topAnchor.constraint(equalTo: topAnchor, constant: 12),
-            heroeImageView.heightAnchor.constraint(equalToConstant: 80),
-            heroeImageView.widthAnchor.constraint(equalToConstant: 80),
             heroeImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
             
             heroeName.leadingAnchor.constraint(equalTo: heroeImageView.trailingAnchor, constant: 12),
