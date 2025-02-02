@@ -75,5 +75,18 @@ let project = Project(
                 .package(product: "SnapshotTesting", type: .runtime, condition: nil),
             ]
         ),
+        .target(
+            name: "HeroListTests",
+            destinations: .iOS,
+            product: .unitTests,
+            bundleId: "com.wallapop.HeroListTests",
+            sources: ["Tests/Features/HeroListTests/**"],
+            dependencies: [
+                .package(product: "HeroList", type: .runtime, condition: nil),
+                .package(product: "CoreDomain", type: .runtime, condition: nil),
+                .package(product: "Routing", type: .runtime, condition: nil),
+                .package(product: "SnapshotTesting", type: .runtime, condition: nil),
+            ]
+        ),
     ]
 )

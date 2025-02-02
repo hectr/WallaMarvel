@@ -197,7 +197,7 @@ enum Features
     static var products: [PackageDescription.Product]
     {[
         .library(name: "HeroDetail", targets: ["HeroDetail", "HeroDetailTestSupport"]),
-        .library(name: "HeroList", targets: ["HeroList"]),
+        .library(name: "HeroList", targets: ["HeroList", "HeroListTestSupport"]),
     ]}
 
     static var targets: [PackageDescription.Target]
@@ -210,6 +210,22 @@ enum Features
                 ExternalDependencies.kingfisher,
             ],
             path: sourcesPath + "HeroList"
+        ),
+        .testTarget(
+            name: "HeroListTests",
+            dependencies: [
+                "CoreDomainContractsTestSupport",
+                "HeroListTestSupport",
+                ExternalDependencies.snapshotTesting,
+            ],
+            path: testsPath + "HeroListTests"
+        ),
+        .target(
+            name: "HeroListTestSupport",
+            dependencies: [
+                "HeroList",
+            ],
+            path: sourcesPath + "HeroListTestSupport"
         ),
 
         // HeroDetail library

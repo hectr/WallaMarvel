@@ -2,6 +2,7 @@ import CoreDomainContracts
 
 /// This protocol is @MainActor-isolated because of a Swift bug. See `MarvelRepository` for more details.
 ///
+/// sourcery: AutoMockable
 @MainActor
 public protocol ListHeroesPresenterProtocol: AnyObject
 {
