@@ -5,7 +5,9 @@ import CoreDomainContractsTestSupport
 import Testing
 import Foundation
 
-@Suite
+/// This struct is @MainActor-isolated because of a Swift bug. See `MarvelRepository` for more details.
+/// 
+@Suite @MainActor
 struct MakeHeroLoadMiddlewareTests
 {
     @Test("When created middleware receives 'load' action, it fetches hero data and returns 'loaded' action")

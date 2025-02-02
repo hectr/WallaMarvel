@@ -5,7 +5,9 @@ import CoreDomainContractsTestSupport
 import Testing
 import Foundation
 
-@Suite
+/// This struct is @MainActor-isolated because of a Swift bug. See `MarvelRepository` for more details.
+/// 
+@Suite @MainActor
 struct GetHeroTests {
     
     @Test("When calling GetHero, it retrieves the correct hero from the repository")

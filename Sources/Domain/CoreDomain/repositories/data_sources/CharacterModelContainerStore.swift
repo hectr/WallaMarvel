@@ -1,10 +1,24 @@
 import CoreDomainContracts
 
+/// `CharacterModelContainerStoreProtocol` is responsible for storing and retrieving `CharacterModelContainer` instances.
+///
 /// sourcery: AutoMockable
 @Background
-protocol CharacterModelContainerStoreProtocol: Sendable
+protocol CharacterModelContainerStoreProtocol: AnyObject, Sendable
 {
+    /// The offset of the next page that should be fetched.
+    var nextOffset: Int { get }
+
+    /// All pages that have been fetched.
+    var pages: [CharacterModelContainer] { get }
+
+    /// Page offsets that have been locked by a request.
+    var lockedOffsets: [Int] { get set }
+
+    /// Stores a page.
     func add(page: CharacterModelContainer)
+
+    /// Retrieves a hero by its identifier.
     func get(hero id: Int) -> CharacterModel?
 }
 
@@ -13,31 +27,54 @@ final class CharacterModelContainerStore: CharacterModelContainerStoreProtocol
 {
     // MARK: State
 
-    var heroes: [CharacterModel]
+    public private(set) var nextOffset: Int
+    public private(set) var pages: [CharacterModelContainer]
+    
+    public var lockedOffsets: [Int]
 
     // MARK: Lifecycle
 
     nonisolated static func make() -> CharacterModelContainerStoreProtocol
     {
-        CharacterModelContainerStore(heroes: [])
+        CharacterModelContainerStore(
+            pages: [],
+            nextOffset: 0,
+            lockedOffsets: []
+        )
     }
 
-    nonisolated init(heroes: [CharacterModel])
+    nonisolated init(
+        pages: [CharacterModelContainer],
+        nextOffset: Int,
+        lockedOffsets: [Int]
+    )
     {
-        self.heroes = heroes
+        self.pages = pages
+        self.nextOffset = nextOffset
+        self.lockedOffsets = []
     }
 
     // MARK: Logic
 
     func add(page: CharacterModelContainer)
     {
-        heroes.append(contentsOf: page.results)
+        pages.append(page)
+        nextOffset = page.offset + page.count
+
+        if let index = lockedOffsets.firstIndex(of: nextOffset) {
+            assert(page.count == 0, "nextOffset should be locked only when the received page is empty")
+            // free the next offset if it was locked
+            lockedOffsets.remove(at: index)
+        }
     }
 
     func get(hero id: Int) -> CharacterModel?
     {
-        return heroes.first { hero in
-            hero.id == id
+        for page in pages {
+            if let match = (page.results.first { hero in hero.id == id }) {
+                return match
+            }
         }
+        return nil
     }
 }

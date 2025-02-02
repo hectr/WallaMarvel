@@ -33,7 +33,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate
         let repository = MarvelRepository.make()
         let listHeroesViewController = ListHeroesViewController.make(
             presenter: ListHeroesPresenter.make(
-                getHeroes: GetHeroes.make(repository: repository)
+                fetchHeroes: FetchNextPage.make(repository: repository)
             ),
             presentDetail: PresentHeroDetail.make(
                 getHero: GetHero.make(repository: repository),

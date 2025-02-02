@@ -2,9 +2,11 @@ import CoreDomainContracts
 import SwiftUI
 import UIKit
 
-public final class ListHeroesViewController: UIViewController {
-    var mainView: ListHeroesView { return view as! ListHeroesView  }
-    
+public final class ListHeroesViewController: UIViewController
+{
+    var mainView: ListHeroesView
+    { view as! ListHeroesView  }
+
     let presentDetail: (Int) -> Void
     let presenter: ListHeroesPresenterProtocol
 
@@ -13,7 +15,8 @@ public final class ListHeroesViewController: UIViewController {
     public static func make(
         presenter: ListHeroesPresenterProtocol,
         presentDetail: @escaping (Int) -> Void
-    ) -> UIViewController {
+    ) -> UIViewController
+    {
         ListHeroesViewController(
             presentDetail: presentDetail,
             presenter: presenter
@@ -23,22 +26,26 @@ public final class ListHeroesViewController: UIViewController {
     init(
         presentDetail: @escaping (Int) -> Void,
         presenter: ListHeroesPresenterProtocol
-    ) {
+    )
+    {
         self.presentDetail = presentDetail
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
         presenter.ui = self
     }
     
-    required init?(coder: NSCoder) {
+    required init?(coder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public override func loadView() {
+    public override func loadView()
+    {
         view = ListHeroesView()
     }
 
-    public override func viewDidLoad() {
+    public override func viewDidLoad()
+    {
         super.viewDidLoad()
         listHeroesProvider = ListHeroesAdapter(tableView: mainView.heroesTableView)
         presenter.getHeroes()
@@ -49,18 +56,29 @@ public final class ListHeroesViewController: UIViewController {
     }
 }
 
-extension ListHeroesViewController: ListHeroesUI {
+extension ListHeroesViewController: ListHeroesUI
+{
     public func update(heroes: [CharacterModel]) {
         listHeroesProvider?.heroes = heroes
     }
 }
 
-extension ListHeroesViewController: UITableViewDelegate {
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension ListHeroesViewController: UITableViewDelegate
+{
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
         guard let id = listHeroesProvider?.heroes[indexPath.row].id else {
             assertionFailure("Hero not found")
             return
         }
         presentDetail(id)
+    }
+
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
+    {
+        let isLastRow = listHeroesProvider?.heroes.indices.last == indexPath.row
+        if isLastRow {
+            presenter.getHeroes()
+        }
     }
 }
