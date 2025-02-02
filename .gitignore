@@ -119,3 +119,6 @@ Derived/*
 
 ## Ignore Tuist generated xcworkspace:
 *.xcworkspace/*
+
+## Ignore SwiftPM generated xcworkspace:
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
