@@ -35,7 +35,6 @@ public final class ListHeroesPresenter: ListHeroesPresenterProtocol {
             return
         }
         getHeroesUseCase { characterModelContainer in
-            print("Characters \(characterModelContainer.results)")
             Task { @MainActor in
                 ui.update(heroes: characterModelContainer.results)
             }
