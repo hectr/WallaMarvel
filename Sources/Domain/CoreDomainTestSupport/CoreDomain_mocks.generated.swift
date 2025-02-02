@@ -42,6 +42,13 @@ import AppKit
 class CharacterModelContainerStoreProtocolMock: CharacterModelContainerStoreProtocol {
 
 
+    var nextOffset: Int {
+        get { return underlyingNextOffset }
+        set(value) { underlyingNextOffset = value }
+    }
+    var underlyingNextOffset: (Int)!
+    var pages: [CharacterModelContainer] = []
+    var lockedOffsets: [Int] = []
 
 
     //MARK: - add
@@ -92,19 +99,19 @@ class MarvelRemoteDataSourceProtocolMock: MarvelRemoteDataSourceProtocol {
 
     //MARK: - fetchHeroes
 
-    var fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidCallsCount = 0
-    var fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidCalled: Bool {
-        return fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidCallsCount > 0
+    var fetchHeroesLimitIntOffsetIntOnSuccessSendableEscapingCharacterDataContainerVoidOnFailureSendableEscapingErrorVoidVoidCallsCount = 0
+    var fetchHeroesLimitIntOffsetIntOnSuccessSendableEscapingCharacterDataContainerVoidOnFailureSendableEscapingErrorVoidVoidCalled: Bool {
+        return fetchHeroesLimitIntOffsetIntOnSuccessSendableEscapingCharacterDataContainerVoidOnFailureSendableEscapingErrorVoidVoidCallsCount > 0
     }
-    var fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidReceivedCompletion: (((CharacterDataContainer) -> Void))?
-    var fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidReceivedInvocations: [(((CharacterDataContainer) -> Void))] = []
-    var fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidClosure: ((@Sendable @escaping (CharacterDataContainer) -> Void) -> Void)?
+    var fetchHeroesLimitIntOffsetIntOnSuccessSendableEscapingCharacterDataContainerVoidOnFailureSendableEscapingErrorVoidVoidReceivedArguments: (limit: Int?, offset: Int?, onSuccess: (CharacterDataContainer) -> Void, onFailure: (Error) -> Void)?
+    var fetchHeroesLimitIntOffsetIntOnSuccessSendableEscapingCharacterDataContainerVoidOnFailureSendableEscapingErrorVoidVoidReceivedInvocations: [(limit: Int?, offset: Int?, onSuccess: (CharacterDataContainer) -> Void, onFailure: (Error) -> Void)] = []
+    var fetchHeroesLimitIntOffsetIntOnSuccessSendableEscapingCharacterDataContainerVoidOnFailureSendableEscapingErrorVoidVoidClosure: ((Int?, Int?, @Sendable @escaping (CharacterDataContainer) -> Void, @Sendable @escaping (Error) -> Void) -> Void)?
 
-    func fetchHeroes(completion: @Sendable @escaping (CharacterDataContainer) -> Void) {
-        fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidCallsCount += 1
-        fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidReceivedCompletion = completion
-        fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidReceivedInvocations.append(completion)
-        fetchHeroesCompletionSendableEscapingCharacterDataContainerVoidVoidClosure?(completion)
+    func fetchHeroes(limit: Int?, offset: Int?, onSuccess: @Sendable @escaping (CharacterDataContainer) -> Void, onFailure: @Sendable @escaping (Error) -> Void) {
+        fetchHeroesLimitIntOffsetIntOnSuccessSendableEscapingCharacterDataContainerVoidOnFailureSendableEscapingErrorVoidVoidCallsCount += 1
+        fetchHeroesLimitIntOffsetIntOnSuccessSendableEscapingCharacterDataContainerVoidOnFailureSendableEscapingErrorVoidVoidReceivedArguments = (limit: limit, offset: offset, onSuccess: onSuccess, onFailure: onFailure)
+        fetchHeroesLimitIntOffsetIntOnSuccessSendableEscapingCharacterDataContainerVoidOnFailureSendableEscapingErrorVoidVoidReceivedInvocations.append((limit: limit, offset: offset, onSuccess: onSuccess, onFailure: onFailure))
+        fetchHeroesLimitIntOffsetIntOnSuccessSendableEscapingCharacterDataContainerVoidOnFailureSendableEscapingErrorVoidVoidClosure?(limit, offset, onSuccess, onFailure)
     }
 
 
@@ -117,19 +124,19 @@ public class MarvelRepositoryProtocolMock: MarvelRepositoryProtocol {
 
     //MARK: - fetchHeroes
 
-    public var fetchHeroesCompletionSendableEscapingCharacterModelContainerVoidVoidCallsCount = 0
-    public var fetchHeroesCompletionSendableEscapingCharacterModelContainerVoidVoidCalled: Bool {
-        return fetchHeroesCompletionSendableEscapingCharacterModelContainerVoidVoidCallsCount > 0
+    public var fetchHeroesOnSuccessSendableEscapingCharacterModelContainerVoidOnFailureSendableEscapingErrorVoidVoidCallsCount = 0
+    public var fetchHeroesOnSuccessSendableEscapingCharacterModelContainerVoidOnFailureSendableEscapingErrorVoidVoidCalled: Bool {
+        return fetchHeroesOnSuccessSendableEscapingCharacterModelContainerVoidOnFailureSendableEscapingErrorVoidVoidCallsCount > 0
     }
-    public var fetchHeroesCompletionSendableEscapingCharacterModelContainerVoidVoidReceivedCompletion: (((CharacterModelContainer) -> Void))?
-    public var fetchHeroesCompletionSendableEscapingCharacterModelContainerVoidVoidReceivedInvocations: [(((CharacterModelContainer) -> Void))] = []
-    public var fetchHeroesCompletionSendableEscapingCharacterModelContainerVoidVoidClosure: ((@Sendable @escaping (CharacterModelContainer) -> Void) -> Void)?
+    public var fetchHeroesOnSuccessSendableEscapingCharacterModelContainerVoidOnFailureSendableEscapingErrorVoidVoidReceivedArguments: (onSuccess: ([CharacterModelContainer]) -> Void, onFailure: (Error) -> Void)?
+    public var fetchHeroesOnSuccessSendableEscapingCharacterModelContainerVoidOnFailureSendableEscapingErrorVoidVoidReceivedInvocations: [(onSuccess: ([CharacterModelContainer]) -> Void, onFailure: (Error) -> Void)] = []
+    public var fetchHeroesOnSuccessSendableEscapingCharacterModelContainerVoidOnFailureSendableEscapingErrorVoidVoidClosure: ((@Sendable @escaping ([CharacterModelContainer]) -> Void, @Sendable @escaping (Error) -> Void) -> Void)?
 
-    public func fetchHeroes(completion: @Sendable @escaping (CharacterModelContainer) -> Void) {
-        fetchHeroesCompletionSendableEscapingCharacterModelContainerVoidVoidCallsCount += 1
-        fetchHeroesCompletionSendableEscapingCharacterModelContainerVoidVoidReceivedCompletion = completion
-        fetchHeroesCompletionSendableEscapingCharacterModelContainerVoidVoidReceivedInvocations.append(completion)
-        fetchHeroesCompletionSendableEscapingCharacterModelContainerVoidVoidClosure?(completion)
+    public func fetchHeroes(onSuccess: @Sendable @escaping ([CharacterModelContainer]) -> Void, onFailure: @Sendable @escaping (Error) -> Void) {
+        fetchHeroesOnSuccessSendableEscapingCharacterModelContainerVoidOnFailureSendableEscapingErrorVoidVoidCallsCount += 1
+        fetchHeroesOnSuccessSendableEscapingCharacterModelContainerVoidOnFailureSendableEscapingErrorVoidVoidReceivedArguments = (onSuccess: onSuccess, onFailure: onFailure)
+        fetchHeroesOnSuccessSendableEscapingCharacterModelContainerVoidOnFailureSendableEscapingErrorVoidVoidReceivedInvocations.append((onSuccess: onSuccess, onFailure: onFailure))
+        fetchHeroesOnSuccessSendableEscapingCharacterModelContainerVoidOnFailureSendableEscapingErrorVoidVoidClosure?(onSuccess, onFailure)
     }
 
     //MARK: - getHero

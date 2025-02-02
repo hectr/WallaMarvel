@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `@Feature` and `@Action macros.
+- HeroList pagination.
 
 ### Fixed
 

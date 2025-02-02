@@ -3,7 +3,7 @@ import UIKit
 
 final class ListHeroesView: UIView {
     enum Constant {
-        static let estimatedRowHeight: CGFloat = 120
+        static let estimatedRowHeight: CGFloat = 105
     }
     
     let heroesTableView: UITableView = {

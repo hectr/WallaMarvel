@@ -5,7 +5,7 @@ import CoreDomainContracts
 final class ListHeroesAdapter: NSObject, UITableViewDataSource {
     var heroes: [CharacterModel] {
         didSet {
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 self.tableView.reloadData()
             }
         }

@@ -4,12 +4,16 @@ import Routing
 import SwiftUI
 import UIKit
 
+/// This protocol is @MainActor-isolated because of a Swift bug. See `MarvelRepository` for more details.
+///
 /// sourcery: AutoMockable
+@MainActor
 protocol MakeHeroLoadMiddlewareProtocol
 {
     func callAsFunction() -> HeroDetailFeature.Store.Middleware
 }
 
+@MainActor
 public struct MakeHeroLoadMiddleware: MakeHeroLoadMiddlewareProtocol
 {
     // MARK: Dependencies

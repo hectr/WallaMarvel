@@ -38,7 +38,7 @@ import AppKit
 
 
 
-public class GetHeroesProtocolMock: GetHeroesProtocol {
+public class FetchNextPageProtocolMock: FetchNextPageProtocol {
 
     public init() {}
 
@@ -46,19 +46,19 @@ public class GetHeroesProtocolMock: GetHeroesProtocol {
 
     //MARK: - callAsFunction
 
-    public var callAsFunctionCompletionSendableEscapingCharacterModelContainerVoidVoidCallsCount = 0
-    public var callAsFunctionCompletionSendableEscapingCharacterModelContainerVoidVoidCalled: Bool {
-        return callAsFunctionCompletionSendableEscapingCharacterModelContainerVoidVoidCallsCount > 0
+    public var callAsFunctionOnSuccessSendableEscapingAllPagesAllPagesVoidOnFailureSendableEscapingErrorErrorVoidVoidCallsCount = 0
+    public var callAsFunctionOnSuccessSendableEscapingAllPagesAllPagesVoidOnFailureSendableEscapingErrorErrorVoidVoidCalled: Bool {
+        return callAsFunctionOnSuccessSendableEscapingAllPagesAllPagesVoidOnFailureSendableEscapingErrorErrorVoidVoidCallsCount > 0
     }
-    public var callAsFunctionCompletionSendableEscapingCharacterModelContainerVoidVoidReceivedCompletion: (((CharacterModelContainer) -> Void))?
-    public var callAsFunctionCompletionSendableEscapingCharacterModelContainerVoidVoidReceivedInvocations: [(((CharacterModelContainer) -> Void))] = []
-    public var callAsFunctionCompletionSendableEscapingCharacterModelContainerVoidVoidClosure: ((@Sendable @escaping (CharacterModelContainer) -> Void) -> Void)?
+    public var callAsFunctionOnSuccessSendableEscapingAllPagesAllPagesVoidOnFailureSendableEscapingErrorErrorVoidVoidReceivedArguments: (onSuccess: (_ allPages: AllPages) -> Void, onFailure: (_ error: Error) -> Void)?
+    public var callAsFunctionOnSuccessSendableEscapingAllPagesAllPagesVoidOnFailureSendableEscapingErrorErrorVoidVoidReceivedInvocations: [(onSuccess: (_ allPages: AllPages) -> Void, onFailure: (_ error: Error) -> Void)] = []
+    public var callAsFunctionOnSuccessSendableEscapingAllPagesAllPagesVoidOnFailureSendableEscapingErrorErrorVoidVoidClosure: ((@Sendable @escaping (_ allPages: AllPages) -> Void, @Sendable @escaping (_ error: Error) -> Void) -> Void)?
 
-    public func callAsFunction(completion: @Sendable @escaping (CharacterModelContainer) -> Void) {
-        callAsFunctionCompletionSendableEscapingCharacterModelContainerVoidVoidCallsCount += 1
-        callAsFunctionCompletionSendableEscapingCharacterModelContainerVoidVoidReceivedCompletion = completion
-        callAsFunctionCompletionSendableEscapingCharacterModelContainerVoidVoidReceivedInvocations.append(completion)
-        callAsFunctionCompletionSendableEscapingCharacterModelContainerVoidVoidClosure?(completion)
+    public func callAsFunction(onSuccess: @Sendable @escaping (_ allPages: AllPages) -> Void, onFailure: @Sendable @escaping (_ error: Error) -> Void) {
+        callAsFunctionOnSuccessSendableEscapingAllPagesAllPagesVoidOnFailureSendableEscapingErrorErrorVoidVoidCallsCount += 1
+        callAsFunctionOnSuccessSendableEscapingAllPagesAllPagesVoidOnFailureSendableEscapingErrorErrorVoidVoidReceivedArguments = (onSuccess: onSuccess, onFailure: onFailure)
+        callAsFunctionOnSuccessSendableEscapingAllPagesAllPagesVoidOnFailureSendableEscapingErrorErrorVoidVoidReceivedInvocations.append((onSuccess: onSuccess, onFailure: onFailure))
+        callAsFunctionOnSuccessSendableEscapingAllPagesAllPagesVoidOnFailureSendableEscapingErrorErrorVoidVoidClosure?(onSuccess, onFailure)
     }
 
 

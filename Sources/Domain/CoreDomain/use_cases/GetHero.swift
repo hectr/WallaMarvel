@@ -1,5 +1,6 @@
 import CoreDomainContracts
 
+@MainActor
 public struct GetHero: GetHeroProtocol
 {
     // MARK: Dependencies
