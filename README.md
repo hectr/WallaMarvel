@@ -6,57 +6,58 @@ The original version of WallaMarvel displayed only the first page of characters 
 
 The new version introduces two major features:
 
-- 🦸 **Hero Detail** – A dedicated character detail page.
-- 🔄 **Hero List Pagination** – The ability to load additional pages from the API.
+- **Hero Detail** – A dedicated character detail page.
+- **Hero List Pagination** – The ability to load additional pages from the API.
 
-The original codebase had significant technical debt (see the [extensive list](#tech-debt-in-original-wallamarvel)), making iteration challenging. Instead of a complete rewrite, we incrementally refactored it to improve maintainability while developing new features—just as you would in a real-world application. All development was driven through pull requests [pull requests](https://github.com/hectr/WallaMarvel/pulls?q=is%3Apr+is%3Aclosed).
+The original codebase had significant technical debt (see the **Tech Debt in Original WallaMarvel** section), making iteration challenging. Instead of a complete rewrite, we incrementally refactored it to improve maintainability while developing new features — just as you would in a real-world application. All development was driven through pull requests [pull requests](https://github.com/hectr/WallaMarvel/pulls?q=is%3Apr+is%3Aclosed).
 
 ## 🛠️ Refactor Overview
 
 ### 1. Project Configuration
 
-- The project is no longer tracked in Git and is instead generated using Tuist (`tuist generate`).
-- Tuist can be installed via:
+- Project is now generated with **Tuist** (`tuist generate`).
+- Installation Methods:
     - Mise (pinned to `4.39.0`): `mise install tuist`
     - Homebrew: `brew install tuist`
 
 ### 2. Modularization
 
-- **CocoaPods** CocoaPods has been completely removed in favor of Swift Package Manager.
-- The project is now modularized using **Swift Package Manager** (SPM).
-- New modules are defined in `Package.swift`.
-- Modules are integrated into the app via **Tuist**'s `Project.swift` (edited using `tuist edit`).
-    - So far, only the test targets from `Package.swift` are replicated in `Project.swift`.
-- The modularization follows **The Dependency Rule**:
-    - _Modules at the same level should not depend on each other_.
-    - _A module should only depend on lower-level modules, never on higher-level ones_.
-- The codebase is structured into four layers (_dependencies always point inward_):
-    - `Core` ← `Domain` ← `Features` ← `Application`
-- To reduce module coupling, we introduced **Contracts modules**, which serve as interface definitions (protocols) that abstract dependencies between modules.
+- **CocoaPods removed** – replaced with **Swift Package Manager** (SPM).
+- **Contracts (Interfaces)** introduced to reduce module coupling.
     - So far, only `CoreDomain` has fully adopted this pattern.
+- Four-layer architecture - **Core** ← **Domain** ← **Features** ← **Application**
+- Layers follow the **Dependency Rules**.
+
+**Dependency Rules**:
+
+   - _Modules at the same level should not depend on each other_.
+   - _A module should only depend on lower-level modules, never on higher-level ones_.
 
 ### 3. Navigation
 
-- Navigation logic is now fully decoupled from the UI, improving testability and flexibility. We introduced a **stateless `Navigator` component** that enforces **Linear Presentation Rules**:
-    - _Last presented View Controller is the next presenter_.
-    - _If no View Controller has been presented, Root View Controller is the next presenter_.
+- **Stateless `Navigator`** component - ensures testability and flexibility.
+- `Navigator` enforces the **Linear Presentation Rules**: 
+ 
+**Linear Presentation Rules**:
 
-**Linear Presentation example:**
+- _Last presented View Controller is the next presenter_.
+- _If no View Controller has been presented, Root View Controller is the next presenter_.
+
+**Example**:
 
 ```
 (Root) View Controller¹ ──> Child View Controller
 └──> (Modal) Tab Controller ──> First Tab Controller, Second Tab Controller, Third Tab Controller
-     └──> (Modal) Some Navigation Controller ──> First Stacked Controller, Second Stacked Controller
-           └──> (Modal) Another View Controller²
+    └──> (Modal) Some Navigation Controller ──> First Stacked Controller, Second Stacked Controller
+        └──> (Modal) Another View Controller²
 ```
-
 ¹: _View Controller_ is the root view controller of the window.
 ²: _Another View Controller_ is the next presenter of the window.
 
 ### 4. Networking
 
-- Replaced `APIClient` with a generic **HTTP client** (`Client` + `NetworkProvider`) that is agnostic of the **Marvel API**.
-- The `v1/public/characters` API endpoint is now defined using a **declarative** interface (`Endpoint`).
+- Replaced `APIClient` with a generic **HTTP client**.
+- Endpoints can be **declaratively defined** now.
 
 ### 5. Redux Architecture
 
@@ -76,41 +77,49 @@ The original codebase had significant technical debt (see the [extensive list](#
                                              └───────────────┘
  ```
 
-- The **Hero Detail** feature was implemented using a Redux-inspired architecture (`LeanRedux` module).
-- To reduce boilerplate, we implemented: `@Feature` and `@Action` macros.
-    - These macros automatically generate the `Action` enum and the `reduce` method, reducing boilerplate and improving maintainability.
+- Implemented **Redux-inspired** `LeanRedux` module for state management.
+- Auto-generating `Actions` and `Reducers` with `@Feature` and `@Action` **macros**.
 
 ### 6. Hero List Refactor and Pagination
 
-- Pagination for the **Hero List** feature follows the original architecture.
-    - However, we reworked the *Repository* and *Remote Data Source* and moved the implementations to the `CoreDomain` module.
-    - The UI is now covered with unit tests.
-    - Additionally, we addressed AutoLayout issues and resolved retain cycles in the presentation layer.
+- **New Pagination logic** on top of existing feature - keeping original structure but reworking Repository & Data Source.
+- **AutoLayout issues** and **memory leaks** resolved.
+- **Unit tests** added.
 
 ### 7. Testing
 
-- Running tests: `tuist test --device 'iPhone 15' --os '18.0' --platform 'iOS' --no-selective-testing`
-- Mock objects are generated using **Sourcery**: `Scripts/generate_mocks.sh`.
-- Snapshot tests use Point-Free's `SnapshotTesting` framework.
+- **Run tests with**: `tuist test --device 'iPhone 15' --os '18.0' --platform 'iOS' --no-selective-testing`
+- **Mocks generated using Sourcery**: `Scripts/generate_mocks.sh`.
+- **Views tested with SnapshotTesting**.
 
 ## ⚠️ Tech Debt in Original WallaMarvel
 
-1. Memory-Management
-    1.1 `ListHeroesViewController` holds a strong reference to `ListHeroesPresenterProtocol`. `ListHeroesPresenter` in turn holds a strong reference to `ListHeroesUI`, which points to the same view controller (`ListHeroesViewController`). Because neither of these references is marked weak, they form a retain cycle.
-2. Networking
-    2.1 `try! JSONDecoder().decode` in `APIClient` is unsafe. If decoding fails, the app will crash.
-    2.2 Forced unwrap of urlComponent!.url! also leads to a crash if the URL is invalid.
-    2.3 No error handling for network failures.
-3. Security (API Keys in Code)
-    3.1 Storing the `privateKey` and `publicKey` in source code is a serious security concern. These should be in a secure storage or, at the very least, injected at build time and obfuscated.
-4. Navigation
-    4.1 In `ListHeroesViewController.tableView(_:didSelectRowAt:)`, the code creates another `ListHeroesViewController`, then pushes it.
-    4.2 Tight Coupling of View and Navigation in `ListHeroesViewController`
-5. Single Responsibility Principle (SRP)
-    5.1 `APIClient` is handling request creation, hashing, and raw decoding with no error handling or separation of concerns.
-    5.2 `ListHeroesViewController` is both building the UI and controlling navigation.
-6. Late Binding
-    6.1 `ListHeroesViewController.listHeroesProvider` and `ListHeroesPresenter.ui` are not set on init, but on `ListHeroesViewController.viewDidAppear`.
-7. AutoLayout issues
-    7.1 `ListHeroesTableViewCell` constraints break on runtime.
-8. Lack of testing
+### 1. Memory-Management Issue
+- Retain cycle in `ListHeroesViewController` & `ListHeroesPresenter`.
+- Strong reference to UI not marked weak, causing leaks.
+    
+### 2. Networking Issues
+- Unsafe decoding (`try! JSONDecoder().decode`).
+- Forced unwraps in URL requests (`urlComponent!.url!`).
+- No error handling for failed API calls.
+    
+### 3. Security Risks
+- API keys hardcoded in the source code.
+- Should be stored securely & injected at build time.
+    
+### 4. Navigation Issues
+- Selecting a hero reloads the list screen instead of opening details.
+- View controllers tightly coupled with navigation logic.
+
+### 5. Single Responsibility Principle (SRP)
+- `APIClient` does too much (request creation, hashing, decoding).
+- `ListHeroesViewController` handles both UI & navigation.
+    
+### 6. Late Binding Issue
+- `ListHeroesViewController` dependencies are not set in the initializer but later in `viewDidLoad`.
+
+### 7. AutoLayout issues
+- Constraints breaking in `ListHeroesTableViewCell`.
+    
+### 8. Lack of testing
+- No unit tests.
