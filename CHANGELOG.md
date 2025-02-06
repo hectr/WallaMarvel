@@ -69,3 +69,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - README.md.
+- PersistentStoreProtocol.swift.
+
+### Fixed
+
+- Removed `Dependencies` from .gitignore. 
